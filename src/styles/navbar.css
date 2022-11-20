@@ -1,0 +1,53 @@
+.container {
+  height: 60px;
+  border-bottom: 0.5px solid lightgray;
+}
+.wrapper {
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.left {
+  display: flex;
+  flex: 1;
+  align-items: center;
+}
+
+.searchcontainer {
+  display: flex;
+  align-items: center;
+  border: 1px solid lightgray;
+  margin-left: 25px;
+  padding: 5px;
+}
+.center {
+  flex: 1;
+}
+.right {
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+}
+.language {
+  font-size: 14px;
+  cursor: pointer;
+}
+.nav-input {
+  border: none;
+}
+.nav-input:focus {
+  outline-width: 0;
+}
+
+.logo {
+  text-align: center;
+  font-weight: 400;
+}
+.menu-item {
+  margin-left: 25px;
+  cursor: pointer;
+}
+.menu-item:hover {
+  color: darkblue;
+}
