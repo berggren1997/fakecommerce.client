@@ -1,10 +1,10 @@
 import Homepage from "./pages/Homepage";
 import { Routes, Route } from "react-router-dom";
-import Login from "./components/Login";
+import Login from "./components/account/Login";
+import Register from "./components/account/Register";
 import Navbar from "./components/Navbar";
 import Announcement from "./components/Announcement";
 import ProductCard from "./components/ProductCard";
-import Register from "./components/Register";
 
 function App() {
   return (
