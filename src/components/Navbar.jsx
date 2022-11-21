@@ -33,6 +33,8 @@ const Navbar = () => {
               textDecoration: "none",
               cursor: "pointer",
               color: "inherit",
+              justifyContent: "center",
+              alignSelf: "center",
             }}
             href="register"
           >
@@ -43,6 +45,7 @@ const Navbar = () => {
               textDecoration: "none",
               cursor: "pointer",
               color: "inherit",
+              alignSelf: "center",
             }}
             href="login"
           >
