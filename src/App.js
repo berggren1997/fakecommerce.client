@@ -5,18 +5,29 @@ import Register from "./components/account/Register";
 import Navbar from "./components/Navbar";
 import Announcement from "./components/Announcement";
 import ProductCard from "./components/ProductCard";
+import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
+import ProductList from "./components/ProductList";
 
 function App() {
+  const theme = createTheme({
+    palette: {
+      background: {
+        default: "#eaeaea",
+      },
+    },
+  });
   return (
-    <div className="App">
-      <Announcement />
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Homepage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/product" element={<ProductCard />} />
-      </Routes>
+    <div>
+      <ThemeProvider theme={theme}>
+        <Navbar />
+        <CssBaseline />
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/products" element={<ProductList />} />
+        </Routes>
+      </ThemeProvider>
     </div>
   );
 }

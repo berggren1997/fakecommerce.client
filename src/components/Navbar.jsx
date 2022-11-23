@@ -8,13 +8,13 @@ const Navbar = () => {
   return (
     <div className="container">
       <div className="wrapper">
-        <div className="left">
+        {/* <div className="left">
           <span className="language">EN</span>
           <div className="searchcontainer">
             <input className="nav-input" placeholder="Search" />
             <SearchIcon sx={{ fontSize: 16, color: "gray" }} />
           </div>
-        </div>
+        </div> */}
         <div className="center">
           <a
             style={{

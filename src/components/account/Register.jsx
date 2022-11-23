@@ -20,6 +20,7 @@ export default function Register() {
         alignItems: "center",
         p: 4,
         mt: 12,
+        bgcolor: "inherit",
       }}
     >
       <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>

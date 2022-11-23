@@ -1,0 +1,15 @@
+.p-section {
+  text-align: center;
+}
+
+.p-section .p-card {
+  width: 23%;
+  min-width: 250px;
+  padding: 10px 12px;
+  border: 1px solid #cce7d0;
+}
+
+.p-section .p-card img {
+  width: 100%;
+  border-radius: 20px;
+}
