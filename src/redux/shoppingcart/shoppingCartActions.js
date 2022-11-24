@@ -1,6 +1,7 @@
 import {
   ADD_ITEM_TO_SHOPPINGCART,
   REMOVE_ITEM_FROM_SHOPPINGCART,
+  TOGGLE_CART,
 } from "./shoppingCartTypes";
 
 export const addShoppingCartItem = (item, quantity = 1) => {
@@ -10,6 +11,12 @@ export const addShoppingCartItem = (item, quantity = 1) => {
       item,
       quantity,
     },
+  };
+};
+
+export const toggleShoppingCart = () => {
+  return {
+    type: TOGGLE_CART,
   };
 };
 

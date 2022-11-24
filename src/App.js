@@ -3,10 +3,9 @@ import { Routes, Route } from "react-router-dom";
 import Login from "./components/account/Login";
 import Register from "./components/account/Register";
 import Navbar from "./components/Navbar";
-import Announcement from "./components/Announcement";
-import ProductCard from "./components/ProductCard";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
-import ProductList from "./components/ProductList";
+import ProductList from "./components/products/ProductList";
+import CartMenu from "./components/cart/CartMenu";
 
 function App() {
   const theme = createTheme({
@@ -27,6 +26,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/products" element={<ProductList />} />
         </Routes>
+        <CartMenu />
       </ThemeProvider>
     </div>
   );
