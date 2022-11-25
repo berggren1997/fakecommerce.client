@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import ProductList from "./components/products/ProductList";
 import CartMenu from "./components/cart/CartMenu";
+import ProductDetails from "./components/products/ProductDetails";
 
 function App() {
   const theme = createTheme({
@@ -25,6 +26,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/products" element={<ProductList />} />
+          <Route path="/products/:id" element={<ProductDetails />} />
         </Routes>
         <CartMenu />
       </ThemeProvider>

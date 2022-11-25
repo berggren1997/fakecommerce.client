@@ -2,16 +2,18 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Box, CardHeader, IconButton } from "@mui/material";
 import { Avatar } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import {
   AddShoppingCartOutlined,
   RemoveShoppingCartOutlined,
 } from "@mui/icons-material";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
 const ProductCard = ({ product }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [count, setCount] = useState(1);
+  const navigate = useNavigate();
   return (
     <Box mt={6}>
       <Box
@@ -25,7 +27,7 @@ const ProductCard = ({ product }) => {
           height="300px"
           src={product.pictureUrl}
           onClick={() => {
-            console.log("should navigate to product with id:" + product.id);
+            navigate(`/products/${product.id}`);
           }}
           style={{ cursor: "pointer" }}
         />
@@ -55,9 +57,24 @@ const ProductCard = ({ product }) => {
         </Typography>
         <Typography>{product.name}</Typography>
         <Typography fontWeight="bold">${product.price}</Typography>
-        <Button variant="contained" color="warning">
-          Add to Cart
-        </Button>
+        <Box display="flex" justifyContent="space-between">
+          {/* <IconButton>
+            <AddShoppingCartIcon />
+          </IconButton> */}
+          <Button
+            sx={{
+              backgroundColor: "#222222",
+              color: "white",
+              borderRadius: 0,
+              height: "40px",
+              minWidth: "150px",
+              padding: "10px 40px",
+            }}
+            variant="contained"
+          >
+            Add to Cart
+          </Button>
+        </Box>
       </Box>
     </Box>
   );
