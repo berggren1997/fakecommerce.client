@@ -1,14 +1,7 @@
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { Box, CardHeader, IconButton } from "@mui/material";
-import { Avatar } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Box } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import {
-  AddShoppingCartOutlined,
-  RemoveShoppingCartOutlined,
-} from "@mui/icons-material";
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import ButtonComponent from "../ButtonComponent";
 
 const ProductCard = ({ product }) => {

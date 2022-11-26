@@ -1,4 +1,4 @@
-import { Box, Button, Divider, IconButton, Typography } from "@mui/material";
+import { Box, Divider, IconButton, Typography } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { CloseOutlined } from "@mui/icons-material";
 import AddIcon from "@mui/icons-material/Add";
@@ -8,7 +8,6 @@ import { shades } from "../../theme";
 import { useNavigate } from "react-router-dom";
 import { toggleShoppingCart } from "../../redux/shoppingcart/shoppingCartActions";
 import ButtonComponent from "../ButtonComponent";
-import { minWidth } from "@mui/system";
 
 const FlexBox = styled(Box)`
   display: flex;

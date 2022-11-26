@@ -1,7 +1,7 @@
 import { Box, Typography, IconButton, useMediaQuery } from "@mui/material";
-import { shades } from "../theme";
 import { useNavigate } from "react-router-dom";
 import ButtonComponent from "./ButtonComponent";
+
 const Hero = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const navigate = useNavigate();
