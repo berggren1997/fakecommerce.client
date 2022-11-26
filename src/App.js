@@ -7,6 +7,8 @@ import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import ProductList from "./components/products/ProductList";
 import CartMenu from "./components/cart/CartMenu";
 import ProductDetails from "./components/products/ProductDetails";
+import Hero from "./components/Hero";
+import Footer from "./components/Footer";
 
 function App() {
   const theme = createTheme({
@@ -20,15 +22,17 @@ function App() {
     <div>
       <ThemeProvider theme={theme}>
         <Navbar />
-        <CssBaseline />
+        {/* <CssBaseline /> */}
         <Routes>
-          <Route path="/" element={<Homepage />} />
+          {/* <Route path="/" element={<Homepage />} /> */}
+          <Route path="/" element={<Hero />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/products" element={<ProductList />} />
           <Route path="/products/:id" element={<ProductDetails />} />
         </Routes>
         <CartMenu />
+        {/* <Footer /> */}
       </ThemeProvider>
     </div>
   );

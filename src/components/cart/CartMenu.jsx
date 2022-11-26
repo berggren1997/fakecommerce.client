@@ -7,6 +7,8 @@ import styled from "@emotion/styled";
 import { shades } from "../../theme";
 import { useNavigate } from "react-router-dom";
 import { toggleShoppingCart } from "../../redux/shoppingcart/shoppingCartActions";
+import ButtonComponent from "../ButtonComponent";
+import { minWidth } from "@mui/system";
 
 const FlexBox = styled(Box)`
   display: flex;
@@ -105,21 +107,13 @@ const CartMenu = () => {
               <Typography fontWeight="bold">SUBTOTAL</Typography>
               <Typography fontWeight="bold">${totalPrice}</Typography>
             </FlexBox>
-            <Button
-              sx={{
-                backgroundColor: shades.primary[400],
-                color: "white",
-                borderRadius: 0,
-                minWidth: "100%",
-                padding: "20px 40px",
-                m: "20px 0",
-              }}
-              onClick={() => {
+            <ButtonComponent
+              clickEvent={() => {
                 dispatch(toggleShoppingCart());
               }}
             >
               CHECKOUT
-            </Button>
+            </ButtonComponent>
           </Box>
         </Box>
       </Box>

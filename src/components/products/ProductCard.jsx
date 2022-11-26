@@ -9,6 +9,7 @@ import {
   RemoveShoppingCartOutlined,
 } from "@mui/icons-material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import ButtonComponent from "../ButtonComponent";
 
 const ProductCard = ({ product }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -50,30 +51,15 @@ const ProductCard = ({ product }) => {
         </Box>
       </Box>
       <Box mt="3px">
-        <Typography variant="subtitle2">
+        <Typography fontWeight="bold">${product.price}</Typography>
+        {/* <Typography variant="subtitle2">
           {product.category
             .replace(/([A-Z])/g, " $1")
             .replace(/^./, (str) => str.toUpperCase())}
-        </Typography>
-        <Typography>{product.name}</Typography>
-        <Typography fontWeight="bold">${product.price}</Typography>
+        </Typography> */}
+        <Typography mb={2}>{product.name}</Typography>
         <Box display="flex" justifyContent="space-between">
-          {/* <IconButton>
-            <AddShoppingCartIcon />
-          </IconButton> */}
-          <Button
-            sx={{
-              backgroundColor: "#222222",
-              color: "white",
-              borderRadius: 0,
-              height: "40px",
-              minWidth: "150px",
-              padding: "10px 40px",
-            }}
-            variant="contained"
-          >
-            Add to Cart
-          </Button>
+          <ButtonComponent>{"Add to cart"}</ButtonComponent>
         </Box>
       </Box>
     </Box>

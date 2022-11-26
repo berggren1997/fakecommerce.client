@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/navbar.css";
-import { IconButton, Box, Badge } from "@mui/material";
+import { IconButton, Box, Badge, Typography } from "@mui/material";
 import {
   PersonOutline,
   ShoppingBagOutlined,
@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleShoppingCart } from "../redux/shoppingcart/shoppingCartActions";
+import ButtonComponent from "./ButtonComponent";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -22,13 +23,13 @@ const Navbar = () => {
       alignItems="center"
       width="100%"
       height="60px"
-      backgroundColor="rgba(203,203,203, 0.95)"
+      backgroundColor="rgba(255, 255, 255, 0.95)"
       color="black"
       position="fixed"
       top="0"
       left="0"
       zIndex="1"
-      borderBottom="1px solid lightgray"
+      borderBottom="1px solid black"
     >
       <Box
         width="80%"
@@ -42,7 +43,7 @@ const Navbar = () => {
           onClick={() => navigate("/")}
           color="black"
         >
-          Fake Commerce
+          <Typography variant="h5">Fake Commerce</Typography>
         </Box>
         <Box
           display="flex"
@@ -50,12 +51,19 @@ const Navbar = () => {
           columnGap="20px"
           zIndex="2"
         >
-          <IconButton sx={{ color: "black" }}>
+          {/* <IconButton sx={{ color: "black" }}>
             <SearchOutlined />
           </IconButton>
           <IconButton sx={{ color: "black" }}>
             <PersonOutline />
-          </IconButton>
+          </IconButton> */}
+          <ButtonComponent
+            clickEvent={() => {
+              navigate("/login");
+            }}
+          >
+            Sign in
+          </ButtonComponent>
           <Badge
             badgeContent={items.length}
             color="secondary"
@@ -78,9 +86,9 @@ const Navbar = () => {
               <ShoppingBagOutlined />
             </IconButton>
           </Badge>
-          <IconButton sx={{ color: "black" }}>
+          {/* <IconButton sx={{ color: "black" }}>
             <MenuOutlined />
-          </IconButton>
+          </IconButton> */}
         </Box>
       </Box>
     </Box>

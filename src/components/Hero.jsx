@@ -1,40 +1,41 @@
-import React from "react";
-import "../styles/hero.css";
+import { Box, Typography, IconButton, useMediaQuery } from "@mui/material";
+import { shades } from "../theme";
 import { useNavigate } from "react-router-dom";
-
+import ButtonComponent from "./ButtonComponent";
 const Hero = () => {
+  const isNonMobile = useMediaQuery("(min-width:600px)");
   const navigate = useNavigate();
-
-  const temp = () => {
-    navigate("/products");
-  };
   return (
-    <>
-      <section className="hero">
-        <h2 className="slider-title">ONLINE SHOPPING</h2>
-        <h1 className="sub-title">MADE EASY</h1>
-        <p className="slider-description">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit...
-        </p>
-        <button className="cta" onClick={temp}>
-          <span className="hover-underline-animation"> Shop now </span>
-          <svg
-            viewBox="0 0 46 16"
-            height="10"
-            width="30"
-            xmlns="http://www.w3.org/2000/svg"
-            id="arrow-horizontal"
-          >
-            <path
-              transform="translate(30)"
-              d="M8,0,6.545,1.455l5.506,5.506H-30V9.039H12.052L6.545,14.545,8,16l8-8Z"
-              data-name="Path 10"
-              id="Path_10"
-            ></path>
-          </svg>
-        </button>
-      </section>
-    </>
+    <Box mt="60px">
+      <img
+        src="/img/hero4.png"
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          backgroundAttachment: "fixed",
+        }}
+      />
+      <Box
+        color="white"
+        padding="20px"
+        borderRadius="10px"
+        textAlign="left"
+        backgroundColor="rgba(0,0,0,0.4)"
+        position="absolute"
+        top="46%"
+        left={isNonMobile ? "10%" : "0"}
+        right={isNonMobile ? undefined : "0"}
+        margin={isNonMobile ? undefined : "0 auto"}
+        maxWidth={isNonMobile ? undefined : "240px"}
+      >
+        <Typography>ONLINE SHOPPING</Typography>
+        <Typography variant="h1">MADE EASY</Typography>
+        <ButtonComponent clickEvent={() => navigate("/products")}>
+          {"Start shopping"}
+        </ButtonComponent>
+      </Box>
+    </Box>
   );
 };
 
