@@ -9,8 +9,17 @@ import CartMenu from "./components/cart/CartMenu";
 import ProductDetails from "./components/products/ProductDetails";
 import Hero from "./components/Hero";
 import Footer from "./components/Footer";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { getShoppingCart } from "./redux/shoppingcart/shoppingCartActions";
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getShoppingCart());
+  }, []);
+
   const theme = createTheme({
     palette: {
       background: {
@@ -24,7 +33,6 @@ function App() {
         <Navbar />
         {/* <CssBaseline /> */}
         <Routes>
-          {/* <Route path="/" element={<Homepage />} /> */}
           <Route path="/" element={<Hero />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
@@ -32,7 +40,6 @@ function App() {
           <Route path="/products/:id" element={<ProductDetails />} />
         </Routes>
         <CartMenu />
-        {/* <Footer /> */}
       </ThemeProvider>
     </div>
   );
