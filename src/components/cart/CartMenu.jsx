@@ -18,9 +18,13 @@ const CartMenu = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { items, isCartOpen } = useSelector((state) => state.cart);
-  const totalPrice = items.reduce((total, item) => {
-    return total + item.quantity * item.price;
-  }, 0);
+
+  items.map((item) => {
+    console.log(item.pictureUrl);
+  });
+  // const totalPrice = items.reduce((total, item) => {
+  //   return total + item.quantity * item.price;
+  // }, 0);
   return (
     <Box
       display={isCartOpen ? "block" : "none"}
@@ -56,57 +60,57 @@ const CartMenu = () => {
 
           {/* CART LIST */}
           <Box>
-            {items.map((item) => (
-              <Box key={item.id}>
-                <FlexBox p="15px 0">
-                  <Box flex="1 1 40%">
-                    <img
-                      alt={item?.name}
-                      width="123px"
-                      height="164px"
-                      src={item.pictureUrl}
-                    />
-                  </Box>
-                  <Box flex="1 1 60%">
-                    <FlexBox mb="5px">
-                      <Typography fontWeight="bold">
-                        {item.attributes.name}
-                      </Typography>
-                      <IconButton onClick={() => {}}>
-                        <RemoveIcon />
-                      </IconButton>
-                    </FlexBox>
-                    <Typography>{item.description}</Typography>
-                    <FlexBox m="15px 0">
-                      <Box
-                        display="flex"
-                        alignItems="center"
-                        border={`1.5px solid ${shades.neutral[500]}`}
-                      >
+            {items &&
+              items.map((item) => (
+                <Box key={item.productId}>
+                  <FlexBox p="15px 0">
+                    <Box flex="1 1 40%">
+                      <img
+                        alt={item.name}
+                        width="123px"
+                        height="164px"
+                        src={item.pictureUrl}
+                      />
+                    </Box>
+                    <Box flex="1 1 60%">
+                      <FlexBox mb="5px">
+                        <Typography fontWeight="bold">{item.name}</Typography>
                         <IconButton onClick={() => {}}>
                           <RemoveIcon />
                         </IconButton>
-                        <Typography>{item.count}</Typography>
-                        <IconButton onClick={() => {}}>
-                          <AddIcon />
-                        </IconButton>
-                      </Box>
-                      <Typography fontWeight="bold">${item.price}</Typography>
-                    </FlexBox>
-                  </Box>
-                </FlexBox>
-                <Divider />
-              </Box>
-            ))}
+                      </FlexBox>
+                      <Typography>{item.description}</Typography>
+                      <FlexBox m="15px 0">
+                        <Box
+                          display="flex"
+                          alignItems="center"
+                          border={`1.5px solid ${shades.neutral[500]}`}
+                        >
+                          <IconButton onClick={() => {}}>
+                            <RemoveIcon />
+                          </IconButton>
+                          <Typography>{item.count}</Typography>
+                          <IconButton onClick={() => {}}>
+                            <AddIcon />
+                          </IconButton>
+                        </Box>
+                        <Typography fontWeight="bold">${item.price}</Typography>
+                      </FlexBox>
+                    </Box>
+                  </FlexBox>
+                  <Divider />
+                </Box>
+              ))}
           </Box>
 
           {/* ACTIONS */}
           <Box m="20px 0">
             <FlexBox m="20px 0">
               <Typography fontWeight="bold">SUBTOTAL</Typography>
-              <Typography fontWeight="bold">${totalPrice}</Typography>
+              <Typography fontWeight="bold">${"totalPrice"}</Typography>
             </FlexBox>
             <ButtonComponent
+              style={{ marginBottom: 12 }}
               clickEvent={() => {
                 dispatch(toggleShoppingCart());
               }}

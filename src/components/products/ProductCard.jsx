@@ -3,11 +3,14 @@ import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import ButtonComponent from "../ButtonComponent";
+import { useDispatch } from "react-redux";
+import { addShoppingCartItem } from "../../redux/shoppingcart/shoppingCartActions";
 
 const ProductCard = ({ product }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [count, setCount] = useState(1);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   return (
     <Box mt={6}>
       <Box
@@ -52,7 +55,13 @@ const ProductCard = ({ product }) => {
         </Typography> */}
         <Typography mb={2}>{product.name}</Typography>
         <Box display="flex" justifyContent="space-between">
-          <ButtonComponent>{"Add to cart"}</ButtonComponent>
+          <ButtonComponent
+            clickEvent={() => {
+              dispatch(addShoppingCartItem(product.id, 1));
+            }}
+          >
+            {"Add to cart"}
+          </ButtonComponent>
         </Box>
       </Box>
     </Box>

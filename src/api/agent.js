@@ -1,6 +1,7 @@
 import axios from "axios";
 
 axios.defaults.baseURL = "https://localhost:5001/api";
+axios.defaults.withCredentials = true;
 
 const responseBody = (response) => response.data;
 const requests = {
@@ -20,9 +21,16 @@ const Account = {
   getCurrentUser: () => requests.post("/auth/currentuser"),
 };
 
+const Basket = {
+  getBasket: () => requests.get("/shoppingcart"),
+  addItemToBasket: (productId, quantity = 1) =>
+    requests.post(`/shoppingcart?productId=${productId}&quantity=${quantity}`),
+};
+
 const agent = {
   Account,
   Products,
+  Basket,
 };
 
 export default agent;
