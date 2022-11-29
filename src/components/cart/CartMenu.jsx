@@ -1,4 +1,4 @@
-import { Box, Divider, IconButton, Typography } from "@mui/material";
+import { Button, Box, Divider, IconButton, Typography } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { CloseOutlined } from "@mui/icons-material";
 import AddIcon from "@mui/icons-material/Add";
@@ -19,9 +19,9 @@ const CartMenu = () => {
   const dispatch = useDispatch();
   const { items, isCartOpen } = useSelector((state) => state.cart);
 
-  items.map((item) => {
-    console.log(item.pictureUrl);
-  });
+  const totalPrice = items.reduce((total, item) => {
+    return total + item.quantity * item.price;
+  }, 0);
   // const totalPrice = items.reduce((total, item) => {
   //   return total + item.quantity * item.price;
   // }, 0);
@@ -89,7 +89,7 @@ const CartMenu = () => {
                           <IconButton onClick={() => {}}>
                             <RemoveIcon />
                           </IconButton>
-                          <Typography>{item.count}</Typography>
+                          <Typography>{item.quantity}</Typography>
                           <IconButton onClick={() => {}}>
                             <AddIcon />
                           </IconButton>
@@ -107,16 +107,23 @@ const CartMenu = () => {
           <Box m="20px 0">
             <FlexBox m="20px 0">
               <Typography fontWeight="bold">SUBTOTAL</Typography>
-              <Typography fontWeight="bold">${"totalPrice"}</Typography>
+              <Typography fontWeight="bold">${totalPrice}</Typography>
             </FlexBox>
-            <ButtonComponent
-              style={{ marginBottom: 12 }}
-              clickEvent={() => {
+            <Button
+              sx={{
+                backgroundColor: shades.primary[400],
+                color: "white",
+                minWidth: "100%",
+                borderRadius: 0,
+                padding: "20px 40px",
+                m: "20px 0",
+              }}
+              onClick={() => {
                 dispatch(toggleShoppingCart());
               }}
             >
               CHECKOUT
-            </ButtonComponent>
+            </Button>
           </Box>
         </Box>
       </Box>

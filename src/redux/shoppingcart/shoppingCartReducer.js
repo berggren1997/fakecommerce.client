@@ -51,7 +51,7 @@ const shoppingCartReducer = (state = initialState, action) => {
         items:
           state.items.length === 0
             ? action.payload.basketItems
-            : [...state.items, ...action.payload.basketItems],
+            : [...action.payload.basketItems],
       };
     case ADD_ITEM_TO_SHOPPINGCART_FAILURE:
       return {
