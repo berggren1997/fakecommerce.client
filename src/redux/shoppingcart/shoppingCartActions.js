@@ -14,6 +14,8 @@ import {
   TOGGLE_CART,
 } from "./shoppingCartTypes";
 import agent from "../../api/agent";
+import { toast } from "react-toastify";
+import { theme } from "../../theme";
 
 export const getShoppingCartPending = () => {
   return {
@@ -119,6 +121,9 @@ export const addShoppingCartItem = (productId, quantity) => {
     try {
       const response = await agent.Basket.addItemToBasket(productId, quantity);
       dispatch(addItemToShoppingCartSuccess(response));
+      toast.success("Successfully added item to shopping cart.", {
+        theme: "dark",
+      });
     } catch (error) {
       console.log("something went south in addShoppingCarItem action");
       dispatch(addItemToShoppingCartFailure(error.message));

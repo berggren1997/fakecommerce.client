@@ -11,8 +11,8 @@ const requests = {
 };
 
 const Products = {
-  getProducts: () => requests.get("/products"),
-  getProductById: (id) => requests.get(`/products/${id}`),
+  getProducts: () => requests.get("/product"),
+  getProductById: (id) => requests.get(`/product/${id}`),
 };
 
 const Account = {

@@ -1,4 +1,4 @@
-import { Box, IconButton, Typography } from "@mui/material";
+import { Box, Button, IconButton, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -6,12 +6,15 @@ import { shades } from "../../theme";
 import ButtonComponent from "../ButtonComponent";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import { useDispatch } from "react-redux";
+import { addShoppingCartItem } from "../../redux/shoppingcart/shoppingCartActions";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const [item, setItem] = useState();
   const [count, setCount] = useState(1);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const getProductItem = async () => {
     await axios
       .get(`https://localhost:5001/api/product/${id}`)
@@ -65,20 +68,44 @@ const ProductDetails = () => {
                 <AddIcon />
               </IconButton>
             </Box>
-            <ButtonComponent>{"Add to cart"}</ButtonComponent>
+            <Button
+              sx={{
+                backgroundColor: shades.primary[400],
+                color: "white",
+                minWidth: "20%",
+                height: "45px",
+                borderRadius: 0,
+                padding: "20px 40px",
+                m: "20px 0",
+              }}
+              onClick={() => {
+                dispatch(addShoppingCartItem(item?.id, count));
+              }}
+            >
+              Add to cart
+            </Button>
           </Box>
           <Box mt={4}>
             <Typography>CATEGORY: {item?.category}</Typography>
           </Box>
         </Box>
       </Box>
-      <ButtonComponent
-        clickEvent={() => {
+      <Button
+        sx={{
+          backgroundColor: shades.primary[400],
+          color: "white",
+          minWidth: "20%",
+          height: "45px",
+          borderRadius: 0,
+          padding: "20px 40px",
+          m: "20px 0",
+        }}
+        onClick={() => {
           navigate("/products");
         }}
       >
         {"Back to products"}
-      </ButtonComponent>
+      </Button>
     </Box>
   );
 };

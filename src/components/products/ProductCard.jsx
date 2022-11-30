@@ -1,10 +1,11 @@
 import Typography from "@mui/material/Typography";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import ButtonComponent from "../ButtonComponent";
 import { useDispatch } from "react-redux";
 import { addShoppingCartItem } from "../../redux/shoppingcart/shoppingCartActions";
+import { shades } from "../../theme";
 
 const ProductCard = ({ product }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -55,13 +56,21 @@ const ProductCard = ({ product }) => {
         </Typography> */}
         <Typography mb={2}>{product.name}</Typography>
         <Box display="flex" justifyContent="space-between">
-          <ButtonComponent
-            clickEvent={() => {
+          <Button
+            sx={{
+              backgroundColor: shades.primary[400],
+              color: "white",
+              minWidth: "20%",
+              height: "35px",
+              borderRadius: 0,
+              padding: "20px 40px",
+            }}
+            onClick={() => {
               dispatch(addShoppingCartItem(product.id, 1));
             }}
           >
-            {"Add to cart"}
-          </ButtonComponent>
+            Add to cart
+          </Button>
         </Box>
       </Box>
     </Box>
