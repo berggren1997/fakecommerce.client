@@ -25,6 +25,9 @@ const Basket = {
   getBasket: () => requests.get("/shoppingcart"),
   addItemToBasket: (productId, quantity = 1) =>
     requests.post(`/shoppingcart?productId=${productId}&quantity=${quantity}`),
+  removeItemFromBasket: (productId, quantity = 1) =>
+    requests.delete(`shoppingcart?productId=${productId}&quantity=${quantity}`),
+  clearCart: () => requests.delete("/shoppingcart/clearCart"),
 };
 
 const agent = {

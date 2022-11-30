@@ -2,9 +2,16 @@ import {
   ADD_ITEM_TO_SHOPPINGCART_FAILURE,
   ADD_ITEM_TO_SHOPPINGCART_PENDING,
   ADD_ITEM_TO_SHOPPINGCART_SUCCESS,
+  CLEAR_SHOPPINGCART,
+  CLEAR_SHOPPINGCART_FAILURE,
+  CLEAR_SHOPPINGCART_PENDING,
+  CLEAR_SHOPPINGCART_SUCCESS,
   GET_SHOPPINGCART_FAILURE,
   GET_SHOPPINGCART_PENDING,
   GET_SHOPPINGCART_SUCCESS,
+  REMOVE_ITEM_FROM_SHOPPINGCART_FAILURE,
+  REMOVE_ITEM_FROM_SHOPPINGCART_PENDING,
+  REMOVE_ITEM_FROM_SHOPPINGCART_SUCCESS,
   TOGGLE_CART,
 } from "./shoppingCartTypes";
 
@@ -54,6 +61,38 @@ const shoppingCartReducer = (state = initialState, action) => {
             : [...action.payload.basketItems],
       };
     case ADD_ITEM_TO_SHOPPINGCART_FAILURE:
+      return {
+        ...state,
+        loading: false,
+      };
+    case REMOVE_ITEM_FROM_SHOPPINGCART_PENDING:
+      return {
+        ...state,
+        loading: true,
+      };
+    case REMOVE_ITEM_FROM_SHOPPINGCART_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        items: [...action.payload.basketItems],
+      };
+    case REMOVE_ITEM_FROM_SHOPPINGCART_FAILURE:
+      return {
+        ...state,
+        loading: false,
+      };
+    case CLEAR_SHOPPINGCART_PENDING:
+      return {
+        ...state,
+        loading: true,
+      };
+    case CLEAR_SHOPPINGCART_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        items: action.payload.basketItems,
+      };
+    case CLEAR_SHOPPINGCART_FAILURE:
       return {
         ...state,
         loading: false,

@@ -2,9 +2,15 @@ import {
   ADD_ITEM_TO_SHOPPINGCART_FAILURE,
   ADD_ITEM_TO_SHOPPINGCART_PENDING,
   ADD_ITEM_TO_SHOPPINGCART_SUCCESS,
+  CLEAR_SHOPPINGCART_PENDING,
+  CLEAR_SHOPPINGCART_SUCCESS,
+  CLEAR_SHOPPINGCART_FAILURE,
   GET_SHOPPINGCART_FAILURE,
   GET_SHOPPINGCART_PENDING,
   GET_SHOPPINGCART_SUCCESS,
+  REMOVE_ITEM_FROM_SHOPPINGCART_FAILURE,
+  REMOVE_ITEM_FROM_SHOPPINGCART_PENDING,
+  REMOVE_ITEM_FROM_SHOPPINGCART_SUCCESS,
   TOGGLE_CART,
 } from "./shoppingCartTypes";
 import agent from "../../api/agent";
@@ -49,6 +55,46 @@ export const addItemToShoppingCartFailure = (errorMsg) => {
   };
 };
 
+export const removeItemFromShoppingCartPending = () => {
+  return {
+    type: REMOVE_ITEM_FROM_SHOPPINGCART_PENDING,
+  };
+};
+
+export const removeItemFromShoppingCartSuccess = (payload) => {
+  return {
+    type: REMOVE_ITEM_FROM_SHOPPINGCART_SUCCESS,
+    payload: payload,
+  };
+};
+
+export const removeItemFromShoppingCartFailure = (errorMsg) => {
+  return {
+    type: REMOVE_ITEM_FROM_SHOPPINGCART_FAILURE,
+    payload: errorMsg,
+  };
+};
+
+export const clearShoppingCartPending = () => {
+  return {
+    type: CLEAR_SHOPPINGCART_PENDING,
+  };
+};
+
+export const clearShoppingCartSuccess = (payload) => {
+  return {
+    type: CLEAR_SHOPPINGCART_SUCCESS,
+    payload: payload,
+  };
+};
+
+export const clearShoppingCartFailure = (errorMsg) => {
+  return {
+    type: CLEAR_SHOPPINGCART_FAILURE,
+    payload: errorMsg,
+  };
+};
+
 export const toggleShoppingCart = () => {
   return {
     type: TOGGLE_CART,
@@ -76,6 +122,33 @@ export const addShoppingCartItem = (productId, quantity) => {
     } catch (error) {
       console.log("something went south in addShoppingCarItem action");
       dispatch(addItemToShoppingCartFailure(error.message));
+    }
+  };
+};
+
+export const removeShoppingCartItem = (productId, quantity) => {
+  return async (dispatch) => {
+    dispatch(removeItemFromShoppingCartPending());
+    try {
+      const response = await agent.Basket.removeItemFromBasket(
+        productId,
+        quantity
+      );
+      dispatch(removeItemFromShoppingCartSuccess(response));
+    } catch (error) {
+      dispatch(removeItemFromShoppingCartFailure(error.message));
+    }
+  };
+};
+
+export const clearShoppingCart = () => {
+  return async (dispatch) => {
+    dispatch(clearShoppingCartPending());
+    try {
+      const response = await agent.Basket.clearCart();
+      dispatch(clearShoppingCartSuccess(response));
+    } catch (error) {
+      dispatch(clearShoppingCartFailure(error.message));
     }
   };
 };

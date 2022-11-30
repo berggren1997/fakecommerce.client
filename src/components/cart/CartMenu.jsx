@@ -6,8 +6,12 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import styled from "@emotion/styled";
 import { shades } from "../../theme";
 import { useNavigate } from "react-router-dom";
-import { toggleShoppingCart } from "../../redux/shoppingcart/shoppingCartActions";
-import ButtonComponent from "../ButtonComponent";
+import {
+  addShoppingCartItem,
+  clearShoppingCart,
+  removeShoppingCartItem,
+  toggleShoppingCart,
+} from "../../redux/shoppingcart/shoppingCartActions";
 
 const FlexBox = styled(Box)`
   display: flex;
@@ -75,7 +79,11 @@ const CartMenu = () => {
                     <Box flex="1 1 60%">
                       <FlexBox mb="5px">
                         <Typography fontWeight="bold">{item.name}</Typography>
-                        <IconButton onClick={() => {}}>
+                        <IconButton
+                          onClick={() => {
+                            dispatch(clearShoppingCart());
+                          }}
+                        >
                           <RemoveIcon />
                         </IconButton>
                       </FlexBox>
@@ -86,11 +94,21 @@ const CartMenu = () => {
                           alignItems="center"
                           border={`1.5px solid ${shades.neutral[500]}`}
                         >
-                          <IconButton onClick={() => {}}>
+                          <IconButton
+                            onClick={() => {
+                              dispatch(
+                                removeShoppingCartItem(item.productId, 1)
+                              );
+                            }}
+                          >
                             <RemoveIcon />
                           </IconButton>
                           <Typography>{item.quantity}</Typography>
-                          <IconButton onClick={() => {}}>
+                          <IconButton
+                            onClick={() => {
+                              dispatch(addShoppingCartItem(item.productId, 1));
+                            }}
+                          >
                             <AddIcon />
                           </IconButton>
                         </Box>
