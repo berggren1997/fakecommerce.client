@@ -8,8 +8,26 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { userLogin } from "../../redux/user/userActions";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting, errors },
+  } = useForm();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // parameter data is FieldValues from React-Hook-Form
+  const submitForm = async (data) => {
+    await dispatch(userLogin(data));
+    navigate("/products");
+  };
+
   return (
     <Container component="main" maxWidth="xs">
       {/* <CssBaseline /> */}
@@ -27,24 +45,20 @@ const Login = () => {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <Box component="form">
+        <Box component="form" onSubmit={handleSubmit(submitForm)}>
           <TextField
             margin="normal"
-            required
             fullWidth
-            id="username"
             label="Username"
-            name="Username"
             autoFocus
+            {...register("username", { required: "username is required" })}
           />
           <TextField
             margin="normal"
-            required
             fullWidth
-            name="password"
             label="Password"
             type="password"
-            id="password"
+            {...register("password", { required: "password is required" })}
           />
           <Button
             type="submit"
