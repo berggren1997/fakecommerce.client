@@ -23,8 +23,8 @@ const Navbar = () => {
       alignItems="center"
       width="100%"
       height="60px"
-      backgroundColor="rgba(255, 255, 255, 0.95)"
-      color="black"
+      backgroundColor="#232f3e"
+      color="white"
       position="fixed"
       top="0"
       left="0"
@@ -41,9 +41,11 @@ const Navbar = () => {
         <Box
           sx={{ cursor: "pointer" }}
           onClick={() => navigate("/")}
-          color="black"
+          color="white"
         >
-          <Typography variant="h5">Fake Commerce</Typography>
+          <Typography variant="h5" color="#CCCC00">
+            Fake Commerce
+          </Typography>
         </Box>
         <Box
           display="flex"
@@ -66,7 +68,7 @@ const Navbar = () => {
           </ButtonComponent>
           <Badge
             badgeContent={items.length}
-            color="secondary"
+            color="primary"
             sx={{
               "& .MuiBadge-badge": {
                 right: 5,
