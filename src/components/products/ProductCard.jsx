@@ -60,7 +60,7 @@ const ProductCard = ({ product }) => {
             sx={{
               backgroundColor: shades.primary[400],
               color: "white",
-              minWidth: "20%",
+              minWidth: "95%",
               height: "35px",
               borderRadius: 0,
               padding: "20px 40px",

@@ -4,7 +4,9 @@ import "../styles/btn.css";
 const ButtonComponent = ({ children, clickEvent }) => {
   return (
     <button onClick={clickEvent} className="cta">
-      <span className="hover-underline-animation">{children}</span>
+      <span style={{ color: "black" }} className="hover-underline-animation">
+        {children}
+      </span>
     </button>
   );
 };

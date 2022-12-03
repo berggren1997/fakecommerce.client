@@ -15,7 +15,6 @@ import {
 } from "./shoppingCartTypes";
 import agent from "../../api/agent";
 import { toast } from "react-toastify";
-import { theme } from "../../theme";
 
 export const getShoppingCartPending = () => {
   return {

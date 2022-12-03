@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/navbar.css";
-import { IconButton, Box, Badge, Typography } from "@mui/material";
+import { IconButton, Box, Badge, Typography, Button } from "@mui/material";
 import {
   PersonOutline,
   ShoppingBagOutlined,
@@ -23,13 +23,12 @@ const Navbar = () => {
       alignItems="center"
       width="100%"
       height="60px"
-      backgroundColor="#232f3e"
       color="white"
       position="fixed"
       top="0"
       left="0"
       zIndex="1"
-      borderBottom="1px solid black"
+      borderBottom=".5px solid gray"
     >
       <Box
         width="80%"
@@ -43,8 +42,8 @@ const Navbar = () => {
           onClick={() => navigate("/")}
           color="white"
         >
-          <Typography variant="h5" color="#CCCC00">
-            Fake Commerce
+          <Typography variant="h5" sx={{ color: "black" }}>
+            <b>Fake Commerce</b>
           </Typography>
         </Box>
         <Box
@@ -59,13 +58,14 @@ const Navbar = () => {
           <IconButton sx={{ color: "black" }}>
             <PersonOutline />
           </IconButton> */}
-          <ButtonComponent
-            clickEvent={() => {
+          <Button
+            sx={{ color: "black", letterSpacing: 1 }}
+            onClick={() => {
               navigate("/login");
             }}
           >
-            Sign in
-          </ButtonComponent>
+            <b>Sign in</b>
+          </Button>
           <Badge
             badgeContent={items.length}
             color="primary"
