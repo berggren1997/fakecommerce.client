@@ -12,6 +12,8 @@ import { useDispatch } from "react-redux";
 import { getShoppingCart } from "./redux/shoppingcart/shoppingCartActions";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Header from "./components/Header";
+import Banner from "./components/Banner";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,11 +30,15 @@ function App() {
     },
   });
   return (
-    <div>
-      <ThemeProvider theme={theme}>
+    <div className="bg-gray-100">
+      <Header />
+      <main className="max-w-screen-2xl mx-auto mt-1">
+        <Banner />
+        <ProductList />
+      </main>
+      {/* <ThemeProvider theme={theme}>
         <ToastContainer position="bottom-right" hideProgressBar />
         <Navbar />
-        {/* <CssBaseline /> */}
         <Routes>
           <Route path="/" element={<Hero />} />
           <Route path="/login" element={<Login />} />
@@ -41,7 +47,7 @@ function App() {
           <Route path="/products/:id" element={<ProductDetails />} />
         </Routes>
         <CartMenu />
-      </ThemeProvider>
+      </ThemeProvider> */}
     </div>
   );
 }
