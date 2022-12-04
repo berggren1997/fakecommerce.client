@@ -36,12 +36,28 @@ const ProductList = () => {
     fetchProducts();
   }, []);
   return (
-    <div className="grid grid-flow-dense md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      {products &&
-        products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-    </div>
+    <>
+      <div className="grid grid-flow-dense md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:-mt-52">
+        {products &&
+          products
+            .slice(0, 8)
+            .map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+        <img
+          className="md:col-span-full"
+          src="https://links.papareact.com/dyz"
+          alt=""
+        />
+
+        {products &&
+          products
+            .slice(8, 16)
+            .map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+      </div>
+    </>
     // <Box width="80%" margin="80px auto">
     //   <Typography variant="h3" textAlign="center">
     //     <b>Our Featured Products</b>

@@ -4,8 +4,12 @@ import {
   SearchIcon,
   ShoppingCartIcon,
 } from "@heroicons/react/outline";
+import { useDispatch, useSelector } from "react-redux";
 
 const Header = () => {
+  const dispatch = useDispatch();
+  const { items } = useSelector((state) => state.cart);
+
   return (
     <>
       {/* LEFT */}
@@ -44,18 +48,19 @@ const Header = () => {
         {/* RIGHT */}
         <div className="text-white flex items-center text-xs space-x-6 mx-6 whitespace-nowrap">
           <div className="cursor-pointer hover:underline">
-            <p className="font-extrabold md:text-sm">sign in</p>
+            <p className="font-extrabold md:text-sm">Sign in</p>
           </div>
           {/* Logged in? show orders btn or smth */}
           <div className="cursor-pointer hover:underline">
-            <p className="font-extrabold md:text-sm">orders</p>
+            <p className="font-extrabold md:text-sm">Orders</p>
           </div>
           <div className="cursor-pointer md:text-sm relative flex items-center">
             <span
               className="absolute top-0 right-0 h-5 w-5 bg-yellow-400 rounded-full text-center 
             text-black font-bold"
             >
-              {/* if items over 9, do "9+" */}9
+              {items.length > 9 ? "9+" : items.length}
+              {/* if items over 9, do "9+" */}
             </span>
             <ShoppingCartIcon className="h-10 hover:text-yellow-400" />
           </div>

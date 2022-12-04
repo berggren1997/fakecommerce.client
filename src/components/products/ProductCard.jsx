@@ -39,7 +39,13 @@ const ProductCard = ({ product }) => {
       <div className="mb-5">
         <p>${product.price}</p>
       </div>
-      <button style={{ width: "100%" }} className="mt-auto button">
+      <button
+        onClick={() => {
+          dispatch(addShoppingCartItem(product.id, 1));
+        }}
+        style={{ width: "100%" }}
+        className="mt-auto button"
+      >
         Add to Basket
       </button>
     </div>
