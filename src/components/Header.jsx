@@ -5,10 +5,12 @@ import {
   ShoppingCartIcon,
 } from "@heroicons/react/outline";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const dispatch = useDispatch();
   const { items } = useSelector((state) => state.cart);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -16,7 +18,14 @@ const Header = () => {
       <div className="flex items-center z-20 bg-amazon_blue p-1 flex-grow py-2">
         <div className="mt-2 items-center flex-grow sm:flex-grow-0">
           <div className="flex text-center">
-            <h1 className="mb-2 text-center text-white mr-14 ml-8 font-bold text-xl hover:cursor-pointer hover:text-yellow-400">
+            <h1
+              onClick={() => {
+                navigate("/");
+              }}
+              className="mb-2 text-center text-white mr-14 ml-8 font-bold text-xl 
+              hover:cursor-pointer hover:text-yellow-400"
+              style={{ fontFamily: "Poppins" }}
+            >
               20-dollar-store
             </h1>
           </div>
@@ -62,7 +71,12 @@ const Header = () => {
               {items.length > 9 ? "9+" : items.length}
               {/* if items over 9, do "9+" */}
             </span>
-            <ShoppingCartIcon className="h-10 hover:text-yellow-400" />
+            <ShoppingCartIcon
+              className="h-10 hover:text-yellow-400"
+              onClick={() => {
+                navigate("/checkout");
+              }}
+            />
           </div>
         </div>
       </div>

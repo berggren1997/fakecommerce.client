@@ -14,6 +14,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "./components/Header";
 import Banner from "./components/Banner";
+import Checkout from "./components/Checkout";
 
 function App() {
   const dispatch = useDispatch();
@@ -33,8 +34,10 @@ function App() {
     <div className="bg-gray-100">
       <Header />
       <main className="max-w-screen-2xl mx-auto">
-        <Banner />
-        <ProductList />
+        <Routes>
+          <Route path="/" element={<Banner />} />
+          <Route path="/checkout" element={<Checkout />} />
+        </Routes>
       </main>
       {/* <ThemeProvider theme={theme}>
         <ToastContainer position="bottom-right" hideProgressBar />
