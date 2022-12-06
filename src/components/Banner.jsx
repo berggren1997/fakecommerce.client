@@ -26,6 +26,13 @@ const Banner = () => {
             <img loading="lazy" src="https://links.papareact.com/6ff" alt="" />
           </div>
           {/* <div>
+            <img
+              loading="lazy"
+              src="https://m.media-amazon.com/images/I/61xggsQhPgL._SX3000_.jpg"
+              alt=""
+            />
+          </div> */}
+          {/* <div>
           <img loading="lazy" src="https://links.papareact.com/7ma" alt="" />
         </div> */}
         </Carousel>

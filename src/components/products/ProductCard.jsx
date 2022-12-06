@@ -14,7 +14,10 @@ const ProductCard = ({ product }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   return (
-    <div className="relative flex items-center flex-col m-5 bg-white z-30 p-10">
+    <div
+      className="relative flex items-center flex-col m-5 bg-white z-30 p-10
+    hover:cursor-pointer"
+    >
       <p className="absolute top-2 right-2 text-sm text-gray-400 italic">
         {product.category}
       </p>

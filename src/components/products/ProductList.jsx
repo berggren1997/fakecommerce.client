@@ -3,21 +3,27 @@ import React, { useEffect, useState } from "react";
 import ProductCard from "../products/ProductCard";
 import CircularProgress from "@mui/material/CircularProgress";
 import agent from "../../api/agent";
+import { useDispatch, useSelector } from "react-redux";
 
 const ProductList = () => {
-  const [products, setProducts] = useState([]);
+  // const [products, setProducts] = useState([]);
+  const { products } = useSelector((state) => state.products);
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [value, setValue] = useState("all");
   const breakPoint = useMediaQuery("(min-width:600px)");
 
-  const fetchProducts = async () => {
-    try {
-      const response = await agent.Products.getProducts();
-      setProducts(response);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const fetchProducts = async () => {
+  //   if (!products) {
+  //     await dispatch(fetchProducts());
+  //   }
+  // try {
+  //   const response = await agent.Products.getProducts();
+  //   setProducts(response);
+  // } catch (error) {
+  //   console.log(error);
+  // }
+  // };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -32,9 +38,9 @@ const ProductList = () => {
     (blouse) => blouse.category === "Blouse"
   );
 
-  useEffect(() => {
-    fetchProducts();
-  }, []);
+  // useEffect(() => {
+  //   fetchProducts();
+  // }, []);
   return (
     <>
       <div className="grid grid-flow-dense md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:-mt-52">

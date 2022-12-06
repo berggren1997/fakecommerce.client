@@ -4,6 +4,11 @@ import CheckoutProduct from "./CheckoutProduct";
 
 const Checkout = () => {
   const { items } = useSelector((state) => state.cart);
+  const { token } = useSelector((state) => state.user);
+
+  const totalPrice = items.reduce((total, item) => {
+    return total + item.quantity * item.price;
+  }, 0);
   return (
     <div className="bg-gray-100">
       <main
@@ -33,8 +38,27 @@ const Checkout = () => {
               ))}
           </div>
         </div>
-        {/* RIGHT */}
-        <div></div>
+        {/* RIGHT/CHECKOUT-SUBTOTAL */}
+        <div className="flex flex-col bg-white p-10 shadow-md">
+          {items.length > 0 && (
+            <>
+              <h2 className="whitespace-nowrap">
+                Subtotal ({items.length} unique{" "}
+                {items.length === 1 ? "item" : "items"}
+                ): <span className="font-bold">${totalPrice}</span>
+              </h2>
+
+              <button
+                className={`button mt-4 ${
+                  !token &&
+                  "from-gray-300 to-gray-500 border-gray-200 text-gray-300 cursor-not-allowed"
+                }`}
+              >
+                {!token ? "Sign in to checkout" : "Checkout"}
+              </button>
+            </>
+          )}
+        </div>
       </main>
     </div>
   );

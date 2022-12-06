@@ -8,43 +8,41 @@ import CartMenu from "./components/cart/CartMenu";
 import ProductDetails from "./components/products/ProductDetails";
 import Hero from "./components/Hero";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getShoppingCart } from "./redux/shoppingcart/shoppingCartActions";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "./components/Header";
 import Banner from "./components/Banner";
 import Checkout from "./components/Checkout";
+import { fetchProducts } from "./redux/products/productActions";
 
 function App() {
   const dispatch = useDispatch();
+  const { products } = useSelector((state) => state.products.products);
 
   useEffect(() => {
     dispatch(getShoppingCart());
+    if (!products) {
+      dispatch(fetchProducts());
+    }
   }, []);
 
-  const theme = createTheme({
-    palette: {
-      background: {
-        default: "#eaeaea",
-      },
-    },
-  });
   return (
     <div className="bg-gray-100">
+      <ToastContainer position="bottom-right" hideProgressBar />
       <Header />
       <main className="max-w-screen-2xl mx-auto">
         <Routes>
           <Route path="/" element={<Banner />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </main>
       {/* <ThemeProvider theme={theme}>
-        <ToastContainer position="bottom-right" hideProgressBar />
         <Navbar />
         <Routes>
           <Route path="/" element={<Hero />} />
-          <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/products" element={<ProductList />} />
           <Route path="/products/:id" element={<ProductDetails />} />
