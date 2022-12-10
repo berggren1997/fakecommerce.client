@@ -54,6 +54,7 @@ const ProductList = () => {
           className="md:col-span-full"
           src="https://links.papareact.com/dyz"
           alt=""
+          width="100%"
         />
 
         {products &&

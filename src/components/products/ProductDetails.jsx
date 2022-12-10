@@ -6,22 +6,29 @@ import { shades } from "../../theme";
 import ButtonComponent from "../ButtonComponent";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { StarIcon } from "@heroicons/react/solid";
 import { addShoppingCartItem } from "../../redux/shoppingcart/shoppingCartActions";
+import agent from "../../api/agent";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const [item, setItem] = useState();
   const [count, setCount] = useState(1);
+  const { token } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const getProductItem = async () => {
-    await axios
-      .get(`https://localhost:5001/api/product/${id}`)
-      .then(({ data }) => {
-        setItem(data);
-      })
-      .catch((err) => console.log(err));
+    try {
+      const product = await agent.Products.getProductById(id, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setItem(product);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -49,6 +56,13 @@ const ProductDetails = () => {
             <Typography>
               <b>${item?.price}</b>
             </Typography>
+            <div className="flex">
+              <StarIcon className="h-5 text-yellow-400" />
+              <StarIcon className="h-5 text-yellow-400" />
+              <StarIcon className="h-5 text-yellow-400" />
+              <StarIcon className="h-5 text-yellow-400" />
+              <StarIcon className="h-5 text-yellow-400" />
+            </div>
             <Typography sx={{ mt: "20px" }}>{item?.description}</Typography>
           </Box>
 
@@ -56,7 +70,7 @@ const ProductDetails = () => {
             <Box
               display="flex"
               alignItems="center"
-              border={`1.5px solid ${shades.neutral[300]}`}
+              // border={`1.5px solid ${shades.neutral[300]}`}
               mr="20px"
               p="2px 5px"
             >
@@ -68,44 +82,28 @@ const ProductDetails = () => {
                 <AddIcon />
               </IconButton>
             </Box>
-            <Button
-              sx={{
-                backgroundColor: shades.primary[400],
-                color: "white",
-                minWidth: "20%",
-                height: "45px",
-                borderRadius: 0,
-                padding: "20px 40px",
-                m: "20px 0",
-              }}
+            <button
+              className="button w-44"
               onClick={() => {
                 dispatch(addShoppingCartItem(item?.id, count));
               }}
             >
-              Add to cart
-            </Button>
+              Add to Cart
+            </button>
           </Box>
           <Box mt={4}>
             <Typography>CATEGORY: {item?.category}</Typography>
           </Box>
         </Box>
       </Box>
-      <Button
-        sx={{
-          backgroundColor: shades.primary[400],
-          color: "white",
-          minWidth: "20%",
-          height: "45px",
-          borderRadius: 0,
-          padding: "20px 40px",
-          m: "20px 0",
-        }}
+      <button
         onClick={() => {
-          navigate("/products");
+          navigate("/");
         }}
+        className="button w-44"
       >
-        {"Back to products"}
-      </Button>
+        Home
+      </button>
     </Box>
   );
 };

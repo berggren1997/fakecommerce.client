@@ -5,14 +5,14 @@ axios.defaults.withCredentials = true;
 
 const responseBody = (response) => response.data;
 const requests = {
-  get: (url) => axios.get(url).then(responseBody),
+  get: (url, options = undefined) => axios.get(url, options).then(responseBody),
   post: (url, body) => axios.post(url, body).then(responseBody),
   delete: (url) => axios.delete(url).then(responseBody),
 };
 
 const Products = {
   getProducts: () => requests.get("/product"),
-  getProductById: (id) => requests.get(`/product/${id}`),
+  getProductById: (id, options) => requests.get(`/product/${id}`, options),
 };
 
 const Account = {

@@ -30,22 +30,22 @@ function App() {
 
   return (
     <div className="bg-gray-100">
-      <ToastContainer position="bottom-right" hideProgressBar />
+      <ToastContainer position="bottom-right" limit={3} hideProgressBar />
       <Header />
       <main className="max-w-screen-2xl mx-auto">
         <Routes>
           <Route path="/" element={<Banner />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/products/:id" element={<ProductDetails />} />
         </Routes>
       </main>
       {/* <ThemeProvider theme={theme}>
         <Navbar />
         <Routes>
           <Route path="/" element={<Hero />} />
-          <Route path="/register" element={<Register />} />
           <Route path="/products" element={<ProductList />} />
-          <Route path="/products/:id" element={<ProductDetails />} />
         </Routes>
         <CartMenu />
       </ThemeProvider> */}

@@ -25,7 +25,7 @@ const Login = () => {
   // parameter data is FieldValues from React-Hook-Form
   const submitForm = async (data) => {
     await dispatch(userLogin(data));
-    navigate("/products");
+    navigate("/");
   };
 
   return (
