@@ -1,9 +1,6 @@
-import { Box, Button, IconButton, Typography } from "@mui/material";
-import axios from "axios";
+import { Box, IconButton, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { shades } from "../../theme";
-import ButtonComponent from "../ButtonComponent";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { useDispatch, useSelector } from "react-redux";
