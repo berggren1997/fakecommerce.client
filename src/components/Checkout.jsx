@@ -5,10 +5,16 @@ import CheckoutProduct from "./CheckoutProduct";
 const Checkout = () => {
   const { items } = useSelector((state) => state.cart);
   const { token } = useSelector((state) => state.user);
+  let totalPrice = 0;
+  const calcTotalPrice = () => {
+    if (items.length > 0) {
+      totalPrice = items.reduce((total, item) => {
+        return total + item.quantity * item.price;
+      }, 0);
+    }
+    return totalPrice;
+  };
 
-  const totalPrice = items.reduce((total, item) => {
-    return total + item.quantity * item.price;
-  }, 0);
   return (
     <div className="bg-gray-100">
       <main

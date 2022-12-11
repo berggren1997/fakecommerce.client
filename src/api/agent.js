@@ -2,10 +2,9 @@ import axios from "axios";
 
 axios.defaults.baseURL = "https://localhost:5001/api";
 axios.defaults.withCredentials = true;
-const apiKey = process.env.APIKEY;
-axios.defaults.headers["api-key"] =
-  "super-secret-api-key-that-probably-should-be-a-guid"; //should be an environment variable
-console.log(apiKey);
+const apiKey = process.env.REACT_APP_APIKEY;
+axios.defaults.headers["api-key"] = apiKey; //should be an environment variable
+
 const responseBody = (response) => response.data;
 
 // axios.interceptors.response.use(
@@ -40,7 +39,8 @@ const responseBody = (response) => response.data;
 const requests = {
   get: (url, options = undefined) => axios.get(url, options).then(responseBody),
   post: (url, body) => axios.post(url, body).then(responseBody),
-  delete: (url) => axios.delete(url).then(responseBody),
+  delete: (url, options = undefined) =>
+    axios.delete(url, options).then(responseBody),
 };
 
 const Products = {
@@ -61,6 +61,8 @@ const Basket = {
   removeItemFromBasket: (productId, quantity = 1) =>
     requests.delete(`shoppingcart?productId=${productId}&quantity=${quantity}`),
   clearCart: () => requests.delete("/shoppingcart/clearCart"),
+  clearCartItem: (itemId) =>
+    requests.delete(`/shoppingcart/clearCartItem/${itemId}`),
 };
 
 const agent = {

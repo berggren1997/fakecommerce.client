@@ -3,6 +3,7 @@ import { StarIcon } from "@heroicons/react/solid";
 import { useDispatch } from "react-redux";
 import {
   addShoppingCartItem,
+  clearShoppingCartItem,
   removeShoppingCartItem,
 } from "../redux/shoppingcart/shoppingCartActions";
 
@@ -18,6 +19,9 @@ const CheckoutProduct = ({ product }) => {
         viewBox="0 0 24 24"
         stroke="currentColor"
         strokeWidth={2}
+        onClick={() => {
+          dispatch(clearShoppingCartItem(product.productId));
+        }}
       >
         <path
           strokeLinecap="round"
