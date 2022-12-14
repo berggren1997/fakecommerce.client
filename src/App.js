@@ -36,14 +36,6 @@ function App() {
           <Route path="/products/:id" element={<ProductDetails />} />
         </Routes>
       </main>
-      {/* <ThemeProvider theme={theme}>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Hero />} />
-          <Route path="/products" element={<ProductList />} />
-        </Routes>
-        <CartMenu />
-      </ThemeProvider> */}
     </div>
   );
 }
