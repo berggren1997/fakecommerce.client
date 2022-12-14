@@ -3,9 +3,6 @@ import {
   ADD_ITEM_TO_SHOPPINGCART_PENDING,
   ADD_ITEM_TO_SHOPPINGCART_SUCCESS,
   CLEAR_SHOPPINGCART_FAILURE,
-  CLEAR_SHOPPINGCART_ITEM_FAILURE,
-  CLEAR_SHOPPINGCART_ITEM_PENDING,
-  CLEAR_SHOPPINGCART_ITEM_SUCCESS,
   CLEAR_SHOPPINGCART_PENDING,
   CLEAR_SHOPPINGCART_SUCCESS,
   GET_SHOPPINGCART_FAILURE,
@@ -95,24 +92,6 @@ const shoppingCartReducer = (state = initialState, action) => {
         items: action.payload.basketItems,
       };
     case CLEAR_SHOPPINGCART_FAILURE:
-      return {
-        ...state,
-        loading: false,
-      };
-
-    case CLEAR_SHOPPINGCART_ITEM_PENDING:
-      return {
-        ...state,
-        loading: true,
-      };
-
-    case CLEAR_SHOPPINGCART_ITEM_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        items: action.payload,
-      };
-    case CLEAR_SHOPPINGCART_ITEM_FAILURE:
       return {
         ...state,
         loading: false,

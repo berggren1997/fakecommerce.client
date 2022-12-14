@@ -1,12 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Login from "./components/account/Login";
 import Register from "./components/account/Register";
-import Navbar from "./components/Navbar";
-import { ThemeProvider, createTheme } from "@mui/material";
-import ProductList from "./components/products/ProductList";
-import CartMenu from "./components/cart/CartMenu";
 import ProductDetails from "./components/products/ProductDetails";
-import Hero from "./components/Hero";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getShoppingCart } from "./redux/shoppingcart/shoppingCartActions";

@@ -1,9 +1,11 @@
 import axios from "axios";
 
+const apiUrl = process.env.REACT_APP_API_URL;
+axios.defaults.baseURL = apiUrl;
 axios.defaults.baseURL = "https://localhost:5001/api";
 axios.defaults.withCredentials = true;
 const apiKey = process.env.REACT_APP_APIKEY;
-axios.defaults.headers["api-key"] = apiKey; //should be an environment variable
+axios.defaults.headers["api-key"] = apiKey;
 
 const responseBody = (response) => response.data;
 

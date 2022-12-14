@@ -1,8 +1,6 @@
 import { Box, Tab, Tabs, Typography, useMediaQuery } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import ProductCard from "../products/ProductCard";
-import CircularProgress from "@mui/material/CircularProgress";
-import agent from "../../api/agent";
 import { useDispatch, useSelector } from "react-redux";
 
 const ProductList = () => {

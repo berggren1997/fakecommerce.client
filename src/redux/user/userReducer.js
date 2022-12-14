@@ -9,7 +9,6 @@ const initialState = {
   token: "",
   username: "",
   error: "",
-  basket: [],
 };
 
 const userReducer = (state = initialState, action) => {

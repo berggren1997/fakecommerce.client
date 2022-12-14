@@ -11,7 +11,7 @@ const CheckoutProduct = ({ product }) => {
   const dispatch = useDispatch();
   return (
     <div className="grid grid-cols-5 relative">
-      <svg
+      {/* <svg
         xmlns="http://www.w3.org/2000/svg"
         className="h-6 w-6 absolute top-0 right-0 hover:cursor-pointer
         hover:bg-gray-400 hover:rounded-full"
@@ -28,7 +28,7 @@ const CheckoutProduct = ({ product }) => {
           strokeLinejoin="round"
           d="M6 18L18 6M6 6l12 12"
         />
-      </svg>
+      </svg> */}
       <img
         src={product.pictureUrl}
         width={200}

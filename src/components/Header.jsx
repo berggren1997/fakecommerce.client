@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  MenuIcon,
-  SearchIcon,
-  ShoppingCartIcon,
-} from "@heroicons/react/outline";
+import { SearchIcon, ShoppingCartIcon } from "@heroicons/react/outline";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -56,7 +52,12 @@ const Header = () => {
 
         {/* RIGHT */}
         <div className="text-white flex items-center text-xs space-x-6 mx-6 whitespace-nowrap">
-          <div className="cursor-pointer hover:underline">
+          <div
+            className="cursor-pointer hover:underline"
+            onClick={() => {
+              navigate("/login");
+            }}
+          >
             <p className="font-extrabold md:text-sm">Sign in</p>
           </div>
           {/* Logged in? show orders btn or smth */}

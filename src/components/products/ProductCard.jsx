@@ -1,11 +1,7 @@
-import Typography from "@mui/material/Typography";
-import { Box, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import ButtonComponent from "../ButtonComponent";
 import { useDispatch } from "react-redux";
 import { addShoppingCartItem } from "../../redux/shoppingcart/shoppingCartActions";
-import { shades } from "../../theme";
 import { StarIcon } from "@heroicons/react/solid";
 
 const ProductCard = ({ product }) => {
@@ -16,15 +12,16 @@ const ProductCard = ({ product }) => {
   return (
     <div
       className="relative flex items-center flex-col m-5 bg-white z-30 p-10
-    hover:cursor-pointer"
-      onClick={() => {
-        navigate(`/products/${product.id}`);
-      }}
+    "
     >
       <p className="absolute top-2 right-2 text-sm text-gray-400 italic">
         {product.category}
       </p>
       <img
+        className="hover:cursor-pointer"
+        onClick={() => {
+          navigate(`/products/${product.id}`);
+        }}
         src={product.pictureUrl}
         height={250}
         width={250}

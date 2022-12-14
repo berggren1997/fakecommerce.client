@@ -12,9 +12,6 @@ import {
   REMOVE_ITEM_FROM_SHOPPINGCART_PENDING,
   REMOVE_ITEM_FROM_SHOPPINGCART_SUCCESS,
   TOGGLE_CART,
-  CLEAR_SHOPPINGCART_ITEM_PENDING,
-  CLEAR_SHOPPINGCART_ITEM_SUCCESS,
-  CLEAR_SHOPPINGCART_ITEM_FAILURE,
 } from "./shoppingCartTypes";
 import agent from "../../api/agent";
 import { toast } from "react-toastify";
@@ -75,26 +72,6 @@ export const removeItemFromShoppingCartSuccess = (payload) => {
 export const removeItemFromShoppingCartFailure = (errorMsg) => {
   return {
     type: REMOVE_ITEM_FROM_SHOPPINGCART_FAILURE,
-    payload: errorMsg,
-  };
-};
-
-export const clearShoppingCartItemPending = () => {
-  return {
-    type: CLEAR_SHOPPINGCART_ITEM_PENDING,
-  };
-};
-
-export const clearShoppingCartItemSuccess = (payload) => {
-  return {
-    type: CLEAR_SHOPPINGCART_ITEM_SUCCESS,
-    payload: payload,
-  };
-};
-
-export const clearShoppingCartItemFailure = (errorMsg) => {
-  return {
-    type: CLEAR_SHOPPINGCART_ITEM_FAILURE,
     payload: errorMsg,
   };
 };
@@ -164,18 +141,6 @@ export const removeShoppingCartItem = (productId, quantity) => {
       dispatch(removeItemFromShoppingCartSuccess(response));
     } catch (error) {
       dispatch(removeItemFromShoppingCartFailure(error.message));
-    }
-  };
-};
-
-export const clearShoppingCartItem = (itemId) => {
-  return async (dispatch) => {
-    dispatch(clearShoppingCartItemPending());
-    try {
-      const response = await agent.Basket.clearCartItem(itemId);
-      dispatch(clearShoppingCartItemSuccess(response));
-    } catch (error) {
-      dispatch(clearShoppingCartItemFailure(error.message));
     }
   };
 };
