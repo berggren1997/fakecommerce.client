@@ -11,9 +11,13 @@ import Header from "./components/Header";
 import Banner from "./components/Banner";
 import Checkout from "./components/Checkout";
 import { fetchProducts } from "./redux/products/productActions";
+import { fetchCurrentUser } from "./redux/user/userActions";
 
-function App() {
+const App = () => {
   const dispatch = useDispatch();
+
+  //for simplicity sake, since there are not that many products, im storing them
+  //in state, to prevent unneccesary API calls
   const { products } = useSelector((state) => state.products.products);
 
   useEffect(() => {
@@ -21,6 +25,7 @@ function App() {
     if (!products) {
       dispatch(fetchProducts());
     }
+    dispatch(fetchCurrentUser());
   }, []);
 
   return (
@@ -38,6 +43,6 @@ function App() {
       </main>
     </div>
   );
-}
+};
 
 export default App;

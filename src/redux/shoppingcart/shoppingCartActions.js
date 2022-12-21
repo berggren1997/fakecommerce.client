@@ -109,7 +109,14 @@ export const getShoppingCart = () => {
       const response = await agent.Basket.getBasket();
       dispatch(getShoppingCartSuccess(response));
     } catch (error) {
-      dispatch(error.message);
+      console.log(error);
+      if (error.response.status === 404) {
+        //TODO: Fixa en action creator och type för 404 cases
+        console.log("shopping cart does not exist");
+      } else {
+        dispatch(error.message);
+        console.log(error);
+      }
     }
   };
 };

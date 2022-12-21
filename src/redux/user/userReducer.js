@@ -8,6 +8,7 @@ const initialState = {
   loading: false,
   token: "",
   username: "",
+  basketItems: [],
   error: "",
 };
 
@@ -19,11 +20,16 @@ const userReducer = (state = initialState, action) => {
         loading: true,
       };
     case USER_LOGIN_SUCCESS:
+      const { accessToken, username /* basket */ } = action.payload;
+      if (accessToken) {
+        localStorage.setItem("user", JSON.stringify({ username, accessToken }));
+      }
       return {
         ...state,
         loading: false,
-        token: action.payload.accessToken,
-        username: action.payload.username,
+        token: accessToken,
+        username: username,
+        // basketItems: basket.basketItems,
       };
     case USER_LOGIN_FAILURE:
       return {

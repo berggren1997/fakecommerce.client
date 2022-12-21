@@ -76,6 +76,7 @@ const Checkout = () => {
               </h2>
 
               <button
+                role="link"
                 className={`button mt-4 ${
                   !token &&
                   "from-gray-300 to-gray-500 border-gray-200 text-gray-300 cursor-not-allowed"

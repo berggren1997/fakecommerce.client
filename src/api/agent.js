@@ -1,4 +1,5 @@
 import axios from "axios";
+import store from "../redux/store";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 axios.defaults.baseURL = apiUrl;
@@ -8,6 +9,12 @@ const apiKey = process.env.REACT_APP_APIKEY;
 axios.defaults.headers["api-key"] = apiKey;
 
 const responseBody = (response) => response.data;
+
+axios.interceptors.request.use((config) => {
+  const token = store.getState().user.token;
+  if (token) config.headers.Authorization = `Bearer ${token}`;
+  return config;
+});
 
 // axios.interceptors.response.use(
 //   (res) => {
@@ -53,7 +60,7 @@ const Products = {
 const Account = {
   login: (values) => requests.post("/auth/login", values),
   register: (values) => requests.post("/auth/register", values),
-  getCurrentUser: () => requests.post("/auth/currentuser"),
+  getCurrentUser: () => requests.get("/auth/currentuser"),
 };
 
 const Basket = {

@@ -18,11 +18,11 @@ const Header = () => {
               onClick={() => {
                 navigate("/");
               }}
-              className="mb-2 text-center text-white mr-14 ml-8 font-bold text-xl 
+              className="mb-2 text-center text-white mr-14 ml-8 font-bold text-3xl 
               hover:cursor-pointer hover:text-yellow-400"
               style={{ fontFamily: "Poppins" }}
             >
-              20-dollar-store
+              LOGO.
             </h1>
           </div>
 
