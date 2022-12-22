@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { userLogin } from "../../redux/user/userActions";
 import { useNavigate } from "react-router-dom";
+import { getShoppingCart } from "../../redux/shoppingcart/shoppingCartActions";
 
 const Login = () => {
   const {
@@ -15,6 +16,7 @@ const Login = () => {
   // parameter data is FieldValues from React-Hook-Form
   const submitForm = (data) => {
     dispatch(userLogin(data));
+    dispatch(getShoppingCart());
     navigate("/");
   };
 

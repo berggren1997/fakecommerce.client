@@ -10,6 +10,7 @@ import {
   REFRESH_TOKEN_PENDING,
   REFRESH_TOKEN_SUCCESS,
   REFRESH_TOKEN_FAILURE,
+  SIGN_OUT_USER,
 } from "./userTypes";
 
 export const userLoginRequest = () => {
@@ -102,6 +103,11 @@ export const refreshToken = () => {
   };
 };
 
+export const signOutUser = () => {
+  return {
+    type: SIGN_OUT_USER,
+  };
+};
 export const fetchCurrentUser = () => {
   return async (dispatch) => {
     dispatch(fetchCurrentUserPending());
@@ -110,12 +116,12 @@ export const fetchCurrentUser = () => {
       dispatch(userLoginSuccess(values));
       const authResponse = await agent.Account.getCurrentUser();
     } catch (error) {
+      console.log(error);
       if (error.response.status === 401) {
         console.log("access token expired, refreshing..");
         const values = await agent.Account.refreshAccessToken();
         console.log(values);
         localStorage.setItem("user", JSON.stringify(values));
-        // console.log(error.response.headers["www-authenticate"]);
       }
     }
   };

@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
+import { getUserInfo, signOutUser } from "../utils";
+import { clearShoppingCart } from "../redux/shoppingcart/shoppingCartActions";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -13,6 +15,8 @@ const Header = () => {
   const { products } = useSelector((state) => state.products);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchedProducts, setSearchedProducts] = useState([]);
+
+  const userInfo = getUserInfo();
 
   const searchProduct = () => {
     // console.log(products);
@@ -37,7 +41,7 @@ const Header = () => {
       {/* LEFT */}
       <div className="flex items-center z-20 bg-amazon_blue p-1 flex-grow py-2">
         <div className="mt-2 items-center flex-grow sm:flex-grow-0">
-          {/* <div className="flex text-center">
+          <div className="flex text-center">
             <h1
               onClick={() => {
                 navigate("/");
@@ -48,9 +52,9 @@ const Header = () => {
             >
               LOGO.
             </h1>
-          </div> */}
+          </div>
 
-          <img
+          {/* <img
             src="https://pngimg.com/uploads/amazon/amazon_PNG11.png"
             width={150}
             height={40}
@@ -63,7 +67,7 @@ const Header = () => {
               marginLeft: 4,
               marginRight: 25,
             }}
-          />
+          /> */}
         </div>
         {/* MIDDLE */}
         <div
@@ -88,11 +92,10 @@ const Header = () => {
             }}
           >
             <p className="font-extrabold md:text-sm">
-              {username ? "Welcome, " + username : "Sign in"}
+              {userInfo?.username ? "Welcome, " + userInfo.username : "Sign in"}
             </p>
           </div>
-          {/* Logged in? show orders btn or smth */}
-          {username && (
+          {userInfo?.username && (
             <div className="cursor-pointer hover:underline">
               <p className="font-extrabold md:text-sm">Orders</p>
             </div>
@@ -112,6 +115,18 @@ const Header = () => {
               }}
             />
           </div>
+          {userInfo?.username && (
+            <div
+              onClick={() => {
+                signOutUser();
+                dispatch(clearShoppingCart());
+              }}
+            >
+              <div className="cursor-pointer hover:underline">
+                <p className="font-extrabold md:text-sm">Sign out</p>
+              </div>
+            </div>
+          )}
         </div>
       </div>
       {searchedProducts && searchTerm && (

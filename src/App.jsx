@@ -12,26 +12,30 @@ import Banner from "./components/Banner";
 import Checkout from "./components/Checkout";
 import { fetchProducts } from "./redux/products/productActions";
 import { fetchCurrentUser, refreshToken } from "./redux/user/userActions";
-import agent from "./api/agent";
+import { getCookie } from "./utils";
 
 const App = () => {
   const dispatch = useDispatch();
 
   const startRefreshTokenInterval = () => {
-    setInterval(() => dispatch(refreshToken()), 600000 /* 600000 */);
+    setInterval(() => dispatch(refreshToken()), 600000);
   };
-  //for simplicity sake, since there are not that many products, im storing them
-  //in state, to prevent unneccesary API calls
-  const { products } = useSelector((state) => state.products.products);
 
+  const { products } = useSelector((state) => state.products.products);
+  const user = JSON.parse(localStorage.getItem("user"));
+  const buyerId = getCookie("buyerId");
   useEffect(() => {
-    dispatch(getShoppingCart());
+    if (buyerId || user) {
+      dispatch(getShoppingCart());
+    }
     if (!products) {
       dispatch(fetchProducts());
     }
-    dispatch(fetchCurrentUser());
-    startRefreshTokenInterval();
-  }, []);
+    // dispatch(fetchCurrentUser());
+    if (user) {
+      startRefreshTokenInterval();
+    }
+  }, [dispatch]);
 
   return (
     <div className="bg-gray-100">

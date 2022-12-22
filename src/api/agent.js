@@ -1,5 +1,6 @@
 import axios from "axios";
 import store from "../redux/store";
+import { getUserInfo } from "../utils";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 axios.defaults.baseURL = apiUrl;
@@ -7,14 +8,17 @@ axios.defaults.baseURL = "https://localhost:5001/api";
 axios.defaults.withCredentials = true;
 const apiKey = process.env.REACT_APP_APIKEY;
 axios.defaults.headers["api-key"] = apiKey;
+const user = getUserInfo();
+
+if (user?.accessToken)
+  axios.defaults.headers["authorization"] = `Bearer ${user.accessToken}`;
 
 const responseBody = (response) => response.data;
 
-axios.interceptors.request.use((config) => {
-  const token = store.getState().user.token;
-  if (token) config.headers.Authorization = `Bearer ${token}`;
-  return config;
-});
+// axios.interceptors.request.use((config) => {
+//   if (user) config.headers.Authorization = `Bearer ${user.accessToken}`;
+//   return config;
+// });
 
 axios.interceptors.response.use(
   (res) => {
@@ -28,11 +32,12 @@ axios.interceptors.response.use(
       if (err.response.status === 401 && !originalConfig._retry) {
         originalConfig._retry = true;
         try {
-          const rs = await axios.get("/auth/refresh", {
+          const rs = await requests.get("/auth/refresh", {
             withCredentials: true,
           });
 
           const { accessToken, username } = rs.data;
+          console.log(accessToken);
           axios.headers.Authorization = `Bearer ${accessToken}`;
           localStorage.setItem(
             "user",

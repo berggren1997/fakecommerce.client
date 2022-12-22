@@ -2,6 +2,7 @@ import {
   REFRESH_TOKEN_FAILURE,
   REFRESH_TOKEN_PENDING,
   REFRESH_TOKEN_SUCCESS,
+  SIGN_OUT_USER,
   USER_LOGIN_FAILURE,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
@@ -38,6 +39,14 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
+      };
+
+    case SIGN_OUT_USER:
+      return {
+        ...state,
+        loading: false,
+        token: "",
+        username: "",
       };
 
     case REFRESH_TOKEN_PENDING:
