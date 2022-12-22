@@ -7,6 +7,7 @@ import {
   USER_LOGIN_FAILURE,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
+  REFRESH_TOKEN_PENDING,
 } from "./userTypes";
 
 export const userLoginRequest = () => {
@@ -54,6 +55,26 @@ export const fetchCurrentUserFailure = (payload) => {
   };
 };
 
+export const refreshTokenPending = () => {
+  return {
+    type: REFRESH_TOKEN_PENDING,
+  };
+};
+
+export const refreshTokenSuccess = (payload) => {
+  return {
+    type: REFRESH_TOKEN_PENDING,
+    payload: payload,
+  };
+};
+
+export const refreshTokenFailure = (payload) => {
+  return {
+    type: REFRESH_TOKEN_PENDING,
+    payload: payload,
+  };
+};
+
 export const userLogin = (fieldvalues) => {
   return async (dispatch) => {
     dispatch(userLoginRequest());
@@ -77,7 +98,11 @@ export const fetchCurrentUser = () => {
       const authResponse = await agent.Account.getCurrentUser();
     } catch (error) {
       if (error.response.status === 401) {
-        console.log("user not authorized");
+        console.log("access token expired, refreshing..");
+        const values = await agent.Account.refreshAccessToken();
+        console.log(values);
+        localStorage.setItem("user", JSON.stringify(values));
+        // console.log(error.response.headers["www-authenticate"]);
       }
     }
   };

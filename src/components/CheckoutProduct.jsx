@@ -56,8 +56,7 @@ const CheckoutProduct = ({ product }) => {
               dispatch(addShoppingCartItem(product.productId, 1));
             }}
             xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6 mr-4 hover:cursor-pointer
-            hover:bg-gray-400 hover:rounded-full"
+            className="h-6 w-6 mr-4 hover:cursor-pointer"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -75,8 +74,7 @@ const CheckoutProduct = ({ product }) => {
               dispatch(removeShoppingCartItem(product.productId, 1));
             }}
             xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6 hover:cursor-pointer ml-4
-            hover:bg-gray-400 hover:rounded-full"
+            className="h-6 w-6 hover:cursor-pointer ml-4"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"

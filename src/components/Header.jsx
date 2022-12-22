@@ -2,11 +2,35 @@ import React from "react";
 import { SearchIcon, ShoppingCartIcon } from "@heroicons/react/outline";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const Header = () => {
   const dispatch = useDispatch();
   const { items } = useSelector((state) => state.cart);
+  const { username } = useSelector((state) => state.user);
   const navigate = useNavigate();
+  const { products } = useSelector((state) => state.products);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchedProducts, setSearchedProducts] = useState([]);
+
+  const searchProduct = () => {
+    // console.log(products);
+    if (!searchTerm) {
+      setSearchedProducts([]);
+      return;
+    }
+    const searchedProduct = products.filter((x) =>
+      x.name.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase())
+    );
+    console.log(searchedProduct);
+    setSearchedProducts(searchedProduct);
+    // console.log(searchedProducts);
+  };
+
+  useEffect(() => {
+    searchProduct();
+  }, [searchTerm]);
 
   return (
     <>
@@ -46,6 +70,8 @@ const Header = () => {
           <input
             className="p-2 h-full w-6 flex-grow rounded-l-md focus:outline-none px-4"
             type="text"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
           <SearchIcon className="h-12 p-4" />
         </div>
@@ -58,12 +84,16 @@ const Header = () => {
               navigate("/login");
             }}
           >
-            <p className="font-extrabold md:text-sm">Sign in</p>
+            <p className="font-extrabold md:text-sm">
+              {username ? "Welcome, " + username : "Sign in"}
+            </p>
           </div>
           {/* Logged in? show orders btn or smth */}
-          <div className="cursor-pointer hover:underline">
-            <p className="font-extrabold md:text-sm">Orders</p>
-          </div>
+          {username && (
+            <div className="cursor-pointer hover:underline">
+              <p className="font-extrabold md:text-sm">Orders</p>
+            </div>
+          )}
           <div className="cursor-pointer md:text-sm relative flex items-center">
             <span
               className="absolute top-0 right-0 h-5 w-5 bg-yellow-400 rounded-full text-center 
@@ -81,6 +111,35 @@ const Header = () => {
           </div>
         </div>
       </div>
+      {searchedProducts && searchTerm && (
+        <div className="flex-1 items-center text-center hidden sm:flex">
+          <div className="overflow-y-scroll h-[200px]">
+            <div className="items-center w-full">
+              <ul className="flex flex-col overflow-hidden items-center">
+                {searchedProducts.map((product) => (
+                  <div className="flex items-center mr-5">
+                    <li
+                      key={product.id}
+                      className="hover:cursor-pointer list-none mb-4"
+                      onClick={() => {
+                        setSearchTerm("");
+                        navigate(`/products/${product.id}`);
+                      }}
+                    >
+                      {product.name}
+                    </li>
+                    <img
+                      src={product.pictureUrl}
+                      alt="image"
+                      className="w-[40px] h-[40px]"
+                    />
+                  </div>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };

@@ -16,34 +16,38 @@ axios.interceptors.request.use((config) => {
   return config;
 });
 
-// axios.interceptors.response.use(
-//   (res) => {
-//     return res;
-//   },
-//   async (err) => {
-//     const originalConfig = err.config;
+axios.interceptors.response.use(
+  (res) => {
+    return res;
+  },
+  async (err) => {
+    const originalConfig = err.config;
 
-//     if (err.response) {
-//       // Access Token was expired
-//       if (err.response.status === 401 && !originalConfig._retry) {
-//         originalConfig._retry = true;
-//         try {
-//           const rs = await axios.get("/auth/refresh", {
-//             withCredentials: true,
-//           });
+    if (err.response) {
+      // Access Token was expired
+      if (err.response.status === 401 && !originalConfig._retry) {
+        originalConfig._retry = true;
+        try {
+          const rs = await axios.get("/auth/refresh", {
+            withCredentials: true,
+          });
 
-//           const { accessToken, username } = rs.data;
-//           axios.headers.Authorization = `Bearer ${accessToken}`;
+          const { accessToken, username } = rs.data;
+          axios.headers.Authorization = `Bearer ${accessToken}`;
+          localStorage.setItem(
+            "user",
+            JSON.stringify({ accessToken, username })
+          );
 
-//           return axios(originalConfig);
-//         } catch (_error) {
-//           return Promise.reject(_error);
-//         }
-//       }
-//     }
-//     return Promise.reject(err);
-//   }
-// );
+          return axios(originalConfig);
+        } catch (_error) {
+          return Promise.reject(_error);
+        }
+      }
+    }
+    return Promise.reject(err);
+  }
+);
 
 const requests = {
   get: (url, options = undefined) => axios.get(url, options).then(responseBody),
@@ -61,6 +65,7 @@ const Account = {
   login: (values) => requests.post("/auth/login", values),
   register: (values) => requests.post("/auth/register", values),
   getCurrentUser: () => requests.get("/auth/currentuser"),
+  refreshAccessToken: () => requests.get("/auth/refresh"),
 };
 
 const Basket = {

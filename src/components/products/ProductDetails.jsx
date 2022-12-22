@@ -12,16 +12,11 @@ const ProductDetails = () => {
   const { id } = useParams();
   const [item, setItem] = useState();
   const [count, setCount] = useState(1);
-  const { token } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const getProductItem = async () => {
     try {
-      const product = await agent.Products.getProductById(id, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const product = await agent.Products.getProductById(id);
       setItem(product);
     } catch (error) {
       console.log(error);
@@ -33,44 +28,35 @@ const ProductDetails = () => {
   }, [id]);
 
   return (
-    <Box width="80%" m="80px auto">
-      <Box display="flex" flexWrap="wrap" columnGap="40px">
-        {/* IMAGES */}
-        <Box flex="1 1 40%" mb="40px">
-          <img
-            alt={item?.name}
-            width="100%"
-            height="100%"
-            src={item?.pictureUrl}
-            style={{ objectFit: "contain" }}
-          />
-        </Box>
-
-        {/* ACTIONS */}
-        <Box flex="1 1 50%" mb="40px">
-          <Box m="65px 0 25px 0">
-            <Typography variant="h3">{item?.name}</Typography>
-            <Typography>
-              <b>${item?.price}</b>
-            </Typography>
-            <div className="flex">
-              <StarIcon className="h-5 text-yellow-400" />
-              <StarIcon className="h-5 text-yellow-400" />
-              <StarIcon className="h-5 text-yellow-400" />
-              <StarIcon className="h-5 text-yellow-400" />
-              <StarIcon className="h-5 text-yellow-400" />
+    <div className="pt-10 pb-12 pl-20 h-[92vh]">
+      <div className="flex flex-col md:flex-row">
+        <div className="flex flex-col w-1/2">
+          <div className="max-w-md">
+            <div className="flex items-center text-sm pt-9">
+              <span>{item?.category}&nbsp;</span>
+              <span>/ {item?.name}</span>
             </div>
-            <Typography sx={{ mt: "20px" }}>{item?.description}</Typography>
-          </Box>
-
-          <Box display="flex" alignItems="center" minHeight="50px">
-            <Box
-              display="flex"
-              alignItems="center"
-              // border={`1.5px solid ${shades.neutral[300]}`}
-              mr="20px"
-              p="2px 5px"
-            >
+            <div className="pt-10">
+              <h1 className="text-4xl font-semibold">{item?.name}</h1>
+            </div>
+            <div className="flex items-center justify-between pt-4">
+              <span className="text-3xl">${item?.price}</span>
+              <div className="flex items-center">
+                <div className="flex px-6 md:px-0">
+                  <StarIcon className="h-5 text-yellow-400" />
+                  <StarIcon className="h-5 text-yellow-400" />
+                  <StarIcon className="h-5 text-yellow-400" />
+                  <StarIcon className="h-5 text-yellow-400" />
+                  <StarIcon className="h-5 text-yellow-400" />
+                </div>
+                <div className="pl-2 leading-none">
+                  5.0 / 5.0{" "}
+                  <span className="text-gray-900/40">(1000 reviews)</span>
+                </div>
+              </div>
+            </div>
+            <p className="pt-8 leading-relaxed">{item?.description}</p>
+            <div className="flex items-center mt-8">
               <IconButton onClick={() => setCount(Math.max(count - 1, 1))}>
                 <RemoveIcon />
               </IconButton>
@@ -78,30 +64,26 @@ const ProductDetails = () => {
               <IconButton onClick={() => setCount(count + 1)}>
                 <AddIcon />
               </IconButton>
-            </Box>
-            <button
-              className="button w-44"
-              onClick={() => {
-                dispatch(addShoppingCartItem(item?.id, count));
-              }}
-            >
-              Add to Cart
-            </button>
-          </Box>
-          <Box mt={4}>
-            <Typography>CATEGORY: {item?.category}</Typography>
-          </Box>
-        </Box>
-      </Box>
-      <button
-        onClick={() => {
-          navigate("/");
-        }}
-        className="button w-44"
-      >
-        Home
-      </button>
-    </Box>
+              <button
+                className="button w-44 ml-6"
+                onClick={() => {
+                  dispatch(addShoppingCartItem(item?.id, count));
+                }}
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className="flex items-center w-[600px] h-[600px] rounded-md">
+          <img
+            src={item?.pictureUrl}
+            alt="itempicture"
+            className="bg-inherit"
+          />
+        </div>
+      </div>
+    </div>
   );
 };
 
