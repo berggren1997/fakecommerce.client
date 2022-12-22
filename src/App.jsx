@@ -11,11 +11,15 @@ import Header from "./components/Header";
 import Banner from "./components/Banner";
 import Checkout from "./components/Checkout";
 import { fetchProducts } from "./redux/products/productActions";
-import { fetchCurrentUser } from "./redux/user/userActions";
+import { fetchCurrentUser, refreshToken } from "./redux/user/userActions";
+import agent from "./api/agent";
 
 const App = () => {
   const dispatch = useDispatch();
 
+  const startRefreshTokenInterval = () => {
+    setInterval(() => dispatch(refreshToken()), 600000 /* 600000 */);
+  };
   //for simplicity sake, since there are not that many products, im storing them
   //in state, to prevent unneccesary API calls
   const { products } = useSelector((state) => state.products.products);
@@ -26,6 +30,7 @@ const App = () => {
       dispatch(fetchProducts());
     }
     dispatch(fetchCurrentUser());
+    startRefreshTokenInterval();
   }, []);
 
   return (

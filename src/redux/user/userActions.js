@@ -8,6 +8,8 @@ import {
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
   REFRESH_TOKEN_PENDING,
+  REFRESH_TOKEN_SUCCESS,
+  REFRESH_TOKEN_FAILURE,
 } from "./userTypes";
 
 export const userLoginRequest = () => {
@@ -63,15 +65,14 @@ export const refreshTokenPending = () => {
 
 export const refreshTokenSuccess = (payload) => {
   return {
-    type: REFRESH_TOKEN_PENDING,
+    type: REFRESH_TOKEN_SUCCESS,
     payload: payload,
   };
 };
 
-export const refreshTokenFailure = (payload) => {
+export const refreshTokenFailure = () => {
   return {
-    type: REFRESH_TOKEN_PENDING,
-    payload: payload,
+    type: REFRESH_TOKEN_FAILURE,
   };
 };
 
@@ -85,6 +86,18 @@ export const userLogin = (fieldvalues) => {
       // dispatch(getShoppingCartSuccess(basket));
     } catch (error) {
       dispatch(userLoginFailure(error.message));
+    }
+  };
+};
+
+export const refreshToken = () => {
+  return async (dispatch) => {
+    dispatch(refreshTokenPending());
+    try {
+      const response = await agent.Account.refreshAccessToken();
+      dispatch(userLoginSuccess(response));
+    } catch (error) {
+      dispatch(refreshTokenFailure());
     }
   };
 };

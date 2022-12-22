@@ -37,7 +37,7 @@ const Header = () => {
       {/* LEFT */}
       <div className="flex items-center z-20 bg-amazon_blue p-1 flex-grow py-2">
         <div className="mt-2 items-center flex-grow sm:flex-grow-0">
-          <div className="flex text-center">
+          {/* <div className="flex text-center">
             <h1
               onClick={() => {
                 navigate("/");
@@ -48,19 +48,22 @@ const Header = () => {
             >
               LOGO.
             </h1>
-          </div>
+          </div> */}
 
-          {/* <img
+          <img
             src="https://pngimg.com/uploads/amazon/amazon_PNG11.png"
             width={150}
             height={40}
+            onClick={() => {
+              navigate("/");
+            }}
             style={{
               objectFit: "contain",
               cursor: "pointer",
               marginLeft: 4,
               marginRight: 25,
             }}
-          /> */}
+          />
         </div>
         {/* MIDDLE */}
         <div
@@ -112,14 +115,13 @@ const Header = () => {
         </div>
       </div>
       {searchedProducts && searchTerm && (
-        <div className="flex-1 items-center text-center hidden sm:flex">
-          <div className="overflow-y-scroll h-[200px]">
+        <div className="flex-1 items-center text-center hidden sm:flex w-full">
+          <div className="overflow-y-scroll h-[200px] w-full">
             <div className="items-center w-full">
-              <ul className="flex flex-col overflow-hidden items-center">
+              <ul className="flex flex-col overflow-hidden items-center ">
                 {searchedProducts.map((product) => (
-                  <div className="flex items-center mr-5">
+                  <div className="flex items-center mr-5" key={product.id}>
                     <li
-                      key={product.id}
                       className="hover:cursor-pointer list-none mb-4"
                       onClick={() => {
                         setSearchTerm("");
