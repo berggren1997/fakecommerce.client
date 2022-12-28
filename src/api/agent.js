@@ -10,8 +10,8 @@ const apiKey = process.env.REACT_APP_APIKEY;
 axios.defaults.headers["api-key"] = apiKey;
 const user = getUserInfo();
 
-if (user?.accessToken)
-  axios.defaults.headers["authorization"] = `Bearer ${user.accessToken}`;
+// if (user?.accessToken)
+//   axios.defaults.headers["authorization"] = `Bearer ${user.accessToken}`;
 
 const responseBody = (response) => response.data;
 
