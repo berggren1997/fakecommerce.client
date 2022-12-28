@@ -1,3 +1,4 @@
+import axios from "axios";
 import agent from "../../api/agent";
 import { getShoppingCartSuccess } from "../shoppingcart/shoppingCartActions";
 import {
@@ -21,6 +22,12 @@ export const userLoginRequest = () => {
 
 // Will get a token (payload.accessToken) and maybe username (payload.username)
 export const userLoginSuccess = (payload) => {
+  axios.defaults.headers["authorization"] = `Bearer ${payload.accessToken}`;
+  const user = {
+    accessToken: payload.accessToken,
+    username: payload.username,
+  };
+  localStorage.setItem("user", JSON.stringify(user));
   return {
     type: USER_LOGIN_SUCCESS,
     payload: payload,

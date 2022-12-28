@@ -5,13 +5,12 @@ import { clearShoppingCart } from "../redux/shoppingcart/shoppingCartActions";
 import { getUserInfo } from "../utils";
 import CheckoutProduct from "./CheckoutProduct";
 
-const stripePromise = loadStripe(
-  "pk_test_51LQFW9HXTD9E5fdzrt5aJsYuP8UqMtAPNVkQ2ysBnrTHQjZUFa0cR5nznIIu8qFOJFxzw35QMgh5XcyY3fJjIY1G00fWKmVWVs"
-);
+// const stripePromise = loadStripe(
+//   "pk_test_51LQFW9HXTD9E5fdzrt5aJsYuP8UqMtAPNVkQ2ysBnrTHQjZUFa0cR5nznIIu8qFOJFxzw35QMgh5XcyY3fJjIY1G00fWKmVWVs"
+// );
 
 const Checkout = () => {
   const { items } = useSelector((state) => state.cart);
-  const { token } = useSelector((state) => state.user);
 
   const userInfo = getUserInfo();
   const dispatch = useDispatch();
