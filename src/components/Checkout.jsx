@@ -1,11 +1,19 @@
+import { loadStripe } from "@stripe/stripe-js";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { clearShoppingCart } from "../redux/shoppingcart/shoppingCartActions";
+import { getUserInfo } from "../utils";
 import CheckoutProduct from "./CheckoutProduct";
+
+const stripePromise = loadStripe(
+  "pk_test_51LQFW9HXTD9E5fdzrt5aJsYuP8UqMtAPNVkQ2ysBnrTHQjZUFa0cR5nznIIu8qFOJFxzw35QMgh5XcyY3fJjIY1G00fWKmVWVs"
+);
 
 const Checkout = () => {
   const { items } = useSelector((state) => state.cart);
   const { token } = useSelector((state) => state.user);
+
+  const userInfo = getUserInfo();
   const dispatch = useDispatch();
   let totalPrice;
   if (items) {
@@ -78,11 +86,11 @@ const Checkout = () => {
               <button
                 role="link"
                 className={`button mt-4 ${
-                  !token &&
+                  !userInfo?.accessToken &&
                   "from-gray-300 to-gray-500 border-gray-200 text-gray-300 cursor-not-allowed"
                 }`}
               >
-                {!token ? "Sign in to checkout" : "Checkout"}
+                {!userInfo?.accessToken ? "Sign in to checkout" : "Checkout"}
               </button>
             </>
           )}

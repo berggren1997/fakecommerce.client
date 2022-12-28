@@ -3,6 +3,7 @@ import {
   ADD_ITEM_TO_SHOPPINGCART_PENDING,
   ADD_ITEM_TO_SHOPPINGCART_SUCCESS,
   CLEAR_SHOPPINGCART_FAILURE,
+  CLEAR_SHOPPINGCART_LOCALLY,
   CLEAR_SHOPPINGCART_PENDING,
   CLEAR_SHOPPINGCART_SUCCESS,
   GET_SHOPPINGCART_FAILURE,
@@ -79,6 +80,11 @@ const shoppingCartReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
+      };
+
+    case CLEAR_SHOPPINGCART_LOCALLY:
+      return {
+        items: [],
       };
     case CLEAR_SHOPPINGCART_PENDING:
       return {

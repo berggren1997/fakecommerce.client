@@ -4,7 +4,7 @@ import { getUserInfo } from "../utils";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 axios.defaults.baseURL = apiUrl;
-axios.defaults.baseURL = "https://localhost:5001/api";
+// axios.defaults.baseURL = "https://localhost:5001/api";
 axios.defaults.withCredentials = true;
 const apiKey = process.env.REACT_APP_APIKEY;
 axios.defaults.headers["api-key"] = apiKey;
@@ -15,10 +15,10 @@ if (user?.accessToken)
 
 const responseBody = (response) => response.data;
 
-// axios.interceptors.request.use((config) => {
-//   if (user) config.headers.Authorization = `Bearer ${user.accessToken}`;
-//   return config;
-// });
+axios.interceptors.request.use((config) => {
+  if (user) config.headers.Authorization = `Bearer ${user.accessToken}`;
+  return config;
+});
 
 axios.interceptors.response.use(
   (res) => {
@@ -37,7 +37,6 @@ axios.interceptors.response.use(
           });
 
           const { accessToken, username } = rs.data;
-          console.log(accessToken);
           axios.headers.Authorization = `Bearer ${accessToken}`;
           localStorage.setItem(
             "user",
@@ -71,6 +70,10 @@ const Account = {
   register: (values) => requests.post("/auth/register", values),
   getCurrentUser: () => requests.get("/auth/currentuser"),
   refreshAccessToken: () => requests.get("/auth/refresh"),
+  signOut: () => {
+    localStorage.removeItem("user");
+    axios.defaults.headers.Authorization = undefined;
+  },
 };
 
 const Basket = {

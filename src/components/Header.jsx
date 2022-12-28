@@ -5,7 +5,11 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import { getUserInfo, signOutUser } from "../utils";
-import { clearShoppingCart } from "../redux/shoppingcart/shoppingCartActions";
+import {
+  clearShoppingCart,
+  clearShoppingCartLocally,
+} from "../redux/shoppingcart/shoppingCartActions";
+import agent from "../api/agent";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -118,8 +122,8 @@ const Header = () => {
           {userInfo?.username && (
             <div
               onClick={() => {
+                dispatch(clearShoppingCartLocally());
                 signOutUser();
-                dispatch(clearShoppingCart());
               }}
             >
               <div className="cursor-pointer hover:underline">

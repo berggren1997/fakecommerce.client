@@ -12,29 +12,36 @@ import Banner from "./components/Banner";
 import Checkout from "./components/Checkout";
 import { fetchProducts } from "./redux/products/productActions";
 import { fetchCurrentUser, refreshToken } from "./redux/user/userActions";
-import { getCookie } from "./utils";
+import { getCookie, getUserInfo } from "./utils";
+import agent from "./api/agent";
 
 const App = () => {
   const dispatch = useDispatch();
+  const userValues = getUserInfo();
+  // const startRefreshTokenInterval = () => {
+  //   setInterval(() => dispatch(refreshToken()), 600000);
+  // };
 
-  const startRefreshTokenInterval = () => {
-    setInterval(() => dispatch(refreshToken()), 600000);
+  const startRefreshTokenInterval = async () => {
+    setInterval(() => agent.Account.refreshAccessToken(), 600000);
   };
 
   const { products } = useSelector((state) => state.products.products);
-  const user = JSON.parse(localStorage.getItem("user"));
   const buyerId = getCookie("buyerId");
   useEffect(() => {
-    if (buyerId || user) {
+    if (buyerId || userValues?.accessToken) {
       dispatch(getShoppingCart());
     }
     if (!products) {
       dispatch(fetchProducts());
     }
-    // dispatch(fetchCurrentUser());
-    if (user) {
-      startRefreshTokenInterval();
+
+    if (userValues?.accessToken) {
+      agent.Account.refreshAccessToken().then(() =>
+        startRefreshTokenInterval()
+      );
     }
+    // dispatch(fetchCurrentUser());
   }, [dispatch]);
 
   return (

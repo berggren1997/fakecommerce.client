@@ -12,6 +12,7 @@ import {
   REMOVE_ITEM_FROM_SHOPPINGCART_PENDING,
   REMOVE_ITEM_FROM_SHOPPINGCART_SUCCESS,
   TOGGLE_CART,
+  CLEAR_SHOPPINGCART_LOCALLY,
 } from "./shoppingCartTypes";
 import agent from "../../api/agent";
 import { toast } from "react-toastify";
@@ -149,6 +150,12 @@ export const removeShoppingCartItem = (productId, quantity) => {
     } catch (error) {
       dispatch(removeItemFromShoppingCartFailure(error.message));
     }
+  };
+};
+
+export const clearShoppingCartLocally = () => {
+  return {
+    type: CLEAR_SHOPPINGCART_LOCALLY,
   };
 };
 
