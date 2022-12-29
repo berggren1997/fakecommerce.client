@@ -1,17 +1,17 @@
 import { loadStripe } from "@stripe/stripe-js";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import agent from "../api/agent";
 import { clearShoppingCart } from "../redux/shoppingcart/shoppingCartActions";
 import { getUserInfo } from "../utils";
 import CheckoutProduct from "./CheckoutProduct";
 
-// const stripePromise = loadStripe(
-//   "pk_test_51LQFW9HXTD9E5fdzrt5aJsYuP8UqMtAPNVkQ2ysBnrTHQjZUFa0cR5nznIIu8qFOJFxzw35QMgh5XcyY3fJjIY1G00fWKmVWVs"
-// );
+const stripePromise = loadStripe(
+  "pk_test_51LQFW9HXTD9E5fdzrt5aJsYuP8UqMtAPNVkQ2ysBnrTHQjZUFa0cR5nznIIu8qFOJFxzw35QMgh5XcyY3fJjIY1G00fWKmVWVs"
+);
 
 const Checkout = () => {
   const { items } = useSelector((state) => state.cart);
-
   const userInfo = getUserInfo();
   const dispatch = useDispatch();
   let totalPrice;
@@ -20,6 +20,13 @@ const Checkout = () => {
       return total + item.quantity * item.price;
     }, 0);
   }
+
+  const createCheckoutSession = async () => {
+    const stripe = await stripePromise;
+
+    //call backend to create checkout session
+    const checkoutSession = await agent.Checkout.createCheckoutSession(items);
+  };
 
   return (
     <div className="bg-gray-100">
@@ -83,6 +90,7 @@ const Checkout = () => {
               </h2>
 
               <button
+                onClick={createCheckoutSession}
                 role="link"
                 className={`button mt-4 ${
                   !userInfo?.accessToken &&

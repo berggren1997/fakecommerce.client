@@ -87,10 +87,16 @@ const Basket = {
     requests.delete(`/shoppingcart/clearCartItem/${itemId}`),
 };
 
+const Checkout = {
+  createCheckoutSession: (values) =>
+    requests.post("/payment/create-checkout-session", values),
+};
+
 const agent = {
   Account,
   Products,
   Basket,
+  Checkout,
 };
 
 export default agent;
