@@ -1,13 +1,14 @@
 import { loadStripe } from "@stripe/stripe-js";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import agent from "../api/agent";
 import { clearShoppingCart } from "../redux/shoppingcart/shoppingCartActions";
 import { getUserInfo } from "../utils";
 import CheckoutProduct from "./CheckoutProduct";
 
 const stripePromise = loadStripe(
-  "pk_test_51LQFW9HXTD9E5fdzrt5aJsYuP8UqMtAPNVkQ2ysBnrTHQjZUFa0cR5nznIIu8qFOJFxzw35QMgh5XcyY3fJjIY1G00fWKmVWVs"
+  "pk_test_51MKjRVAfkQxUcounT3NdiCh3RVxEmaZckacpasWbstTC82pio1z7PC3u39BO1WafkQoU14LXpM3x8desk1SvucTz00ydHG8iG6"
 );
 
 const Checkout = () => {
@@ -26,6 +27,17 @@ const Checkout = () => {
 
     //call backend to create checkout session
     const checkoutSession = await agent.Checkout.createCheckoutSession(items);
+    console.log(checkoutSession);
+    // Redirect the user/customer to Stripe Checkout
+    const result = await stripe.redirectToCheckout({
+      sessionId: checkoutSession.id,
+    });
+
+    if (result.error) {
+      toast.error(result.error?.message, {
+        theme: "dark",
+      });
+    }
   };
 
   return (

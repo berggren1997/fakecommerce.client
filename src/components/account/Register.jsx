@@ -71,7 +71,9 @@ const Register = () => {
 
           <label className="text-gray-700">Confirm Password</label>
           <input
-            {...register("password", { required: "password is required" })}
+            {...register("confirmpassword", {
+              required: "password is required",
+            })}
             className="w-full py-2 px-2 bg-gray-100 rounded-md text-gray-500 focus:outline-none mb-4"
             type="password"
           />

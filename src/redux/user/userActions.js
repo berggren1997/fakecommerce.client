@@ -105,7 +105,10 @@ export const refreshToken = () => {
       const response = await agent.Account.refreshAccessToken();
       dispatch(userLoginSuccess(response));
     } catch (error) {
-      dispatch(refreshTokenFailure());
+      if (error.response.status === 401) {
+        dispatch(refreshTokenFailure());
+        localStorage.removeItem("user");
+      }
     }
   };
 };
