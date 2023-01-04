@@ -13,6 +13,7 @@ import Checkout from "./components/Checkout";
 import { fetchProducts } from "./redux/products/productActions";
 import { refreshToken } from "./redux/user/userActions";
 import { getCookie, getUserInfo } from "./utils";
+import SuccessPage from "./pages/SuccessPage";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -48,6 +49,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/products/:id" element={<ProductDetails />} />
+          <Route path="/success" element={<SuccessPage />} />
         </Routes>
       </main>
     </div>
