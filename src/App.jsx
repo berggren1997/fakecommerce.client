@@ -11,30 +11,21 @@ import Header from "./components/Header";
 import Banner from "./components/Banner";
 import Checkout from "./components/Checkout";
 import { fetchProducts } from "./redux/products/productActions";
-import { refreshToken } from "./redux/user/userActions";
 import { getCookie, getUserInfo } from "./utils";
 import SuccessPage from "./pages/SuccessPage";
 
 const App = () => {
   const dispatch = useDispatch();
-  const userValues = getUserInfo();
-  const startRefreshTokenInterval = () => {
-    setInterval(() => dispatch(refreshToken()), 600000);
-  };
-
   const { products } = useSelector((state) => state.products.products);
   const buyerId = getCookie("buyerId");
+  const userValues = getUserInfo();
+
   useEffect(() => {
     if (buyerId || userValues?.accessToken) {
       dispatch(getShoppingCart());
     }
     if (!products) {
       dispatch(fetchProducts());
-    }
-
-    if (userValues?.accessToken) {
-      dispatch(refreshToken());
-      startRefreshTokenInterval();
     }
   }, [dispatch]);
 

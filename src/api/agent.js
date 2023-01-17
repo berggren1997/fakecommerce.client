@@ -9,16 +9,11 @@ axios.defaults.withCredentials = true;
 const apiKey = process.env.REACT_APP_APIKEY;
 axios.defaults.headers["api-key"] = apiKey;
 const user = getUserInfo();
+const token = JSON.parse(localStorage.getItem("user"));
 
-// if (user?.accessToken)
-//   axios.defaults.headers["authorization"] = `Bearer ${user.accessToken}`;
+axios.defaults.headers["authorization"] = `Bearer ${token.accessToken}`;
 
 const responseBody = (response) => response.data;
-
-axios.interceptors.request.use((config) => {
-  if (user) config.headers.Authorization = `Bearer ${user.accessToken}`;
-  return config;
-});
 
 axios.interceptors.response.use(
   (res) => {
