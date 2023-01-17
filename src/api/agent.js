@@ -1,6 +1,4 @@
 import axios from "axios";
-import store from "../redux/store";
-import { getUserInfo } from "../utils";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 axios.defaults.baseURL = apiUrl;
@@ -8,7 +6,6 @@ axios.defaults.baseURL = apiUrl;
 axios.defaults.withCredentials = true;
 const apiKey = process.env.REACT_APP_APIKEY;
 axios.defaults.headers["api-key"] = apiKey;
-const user = getUserInfo();
 const token = JSON.parse(localStorage.getItem("user"));
 
 axios.defaults.headers["authorization"] = `Bearer ${token.accessToken}`;
