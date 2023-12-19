@@ -92,7 +92,9 @@ const Header = () => {
           <div
             className="cursor-pointer hover:underline"
             onClick={() => {
-              navigate("/login");
+              if (!userInfo?.username) {
+                navigate("/login");
+              }
             }}
           >
             <p className="font-extrabold md:text-sm">

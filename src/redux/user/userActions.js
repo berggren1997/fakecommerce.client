@@ -98,20 +98,20 @@ export const userLogin = (fieldvalues) => {
   };
 };
 
-export const refreshToken = () => {
-  return async (dispatch) => {
-    dispatch(refreshTokenPending());
-    try {
-      const response = await agent.Account.refreshAccessToken();
-      dispatch(userLoginSuccess(response));
-    } catch (error) {
-      if (error.response.status === 401) {
-        dispatch(refreshTokenFailure());
-        localStorage.removeItem("user");
-      }
-    }
-  };
-};
+// export const refreshToken = () => {
+//   return async (dispatch) => {
+//     dispatch(refreshTokenPending());
+//     try {
+//       const response = await agent.Account.refreshAccessToken();
+//       dispatch(userLoginSuccess(response));
+//     } catch (error) {
+//       if (error.response.status === 401) {
+//         dispatch(refreshTokenFailure());
+//         localStorage.removeItem("user");
+//       }
+//     }
+//   };
+// };
 
 export const signOutUser = () => {
   return {

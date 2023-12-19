@@ -1,49 +1,51 @@
 import axios from "axios";
 
 const apiUrl = process.env.REACT_APP_API_URL;
-axios.defaults.baseURL = apiUrl;
-// axios.defaults.baseURL = "https://localhost:5001/api";
+// axios.defaults.baseURL = apiUrl;
+axios.defaults.baseURL = "https://localhost:5001/api";
 axios.defaults.withCredentials = true;
 const apiKey = process.env.REACT_APP_APIKEY;
 axios.defaults.headers["api-key"] = apiKey;
 const token = JSON.parse(localStorage.getItem("user"));
 
-axios.defaults.headers["authorization"] = `Bearer ${token.accessToken}`;
+if (token) {
+  axios.defaults.headers["authorization"] = `Bearer ${token.accessToken}`;
+}
 
 const responseBody = (response) => response.data;
 
-axios.interceptors.response.use(
-  (res) => {
-    return res;
-  },
-  async (err) => {
-    const originalConfig = err.config;
+// axios.interceptors.response.use(
+//   (res) => {
+//     return res;
+//   },
+//   async (err) => {
+//     const originalConfig = err.config;
 
-    if (err.response) {
-      // Access Token was expired
-      if (err.response.status === 401 && !originalConfig._retry) {
-        originalConfig._retry = true;
-        try {
-          const rs = await requests.get("/auth/refresh", {
-            withCredentials: true,
-          });
+//     if (err.response) {
+//       // Access Token was expired
+//       if (err.response.status === 401 && !originalConfig._retry) {
+//         originalConfig._retry = true;
+//         try {
+//           const rs = await requests.get("/auth/refresh", {
+//             withCredentials: true,
+//           });
 
-          const { accessToken, username } = rs.data;
-          axios.headers.Authorization = `Bearer ${accessToken}`;
-          localStorage.setItem(
-            "user",
-            JSON.stringify({ accessToken, username })
-          );
+//           const { accessToken, username } = rs.data;
+//           axios.headers.Authorization = `Bearer ${accessToken}`;
+//           localStorage.setItem(
+//             "user",
+//             JSON.stringify({ accessToken, username })
+//           );
 
-          return axios(originalConfig);
-        } catch (_error) {
-          return Promise.reject(_error);
-        }
-      }
-    }
-    return Promise.reject(err);
-  }
-);
+//           return axios(originalConfig);
+//         } catch (_error) {
+//           return Promise.reject(_error);
+//         }
+//       }
+//     }
+//     return Promise.reject(err);
+//   }
+// );
 
 const requests = {
   get: (url, options = undefined) => axios.get(url, options).then(responseBody),
